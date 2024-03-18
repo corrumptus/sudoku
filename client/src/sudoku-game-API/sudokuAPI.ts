@@ -48,7 +48,16 @@ function numeroRepetidoQuadrante(arr: sudokuValue[]): boolean {
     return false;
 }
 
-export function verificaJogo(arr: sudokuValue[]) {
+function validaArray(arr: (sudokuValue | undefined)[]): arr is sudokuValue[] {
+    return !arr.includes(undefined);
+}
+
+export function verificaJogo(arr: (sudokuValue | undefined)[]) {
+    if (!validaArray(arr)) {
+        console.log("termine o jogo primeiro");
+        return;
+    }
+
     if (numeroRepetidoLinha(arr)) {
         console.log("tem número repetido em uma linha");
         return;

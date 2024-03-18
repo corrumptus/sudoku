@@ -37,15 +37,6 @@ export default function SudokuRepresentation({
     setTabela(novaTabela);
   }
 
-  function checarTabela() {
-    if (tabela.includes(undefined)) {
-      console.log("termine o jogo primeiro");
-      return;
-    }
-
-    verificaJogo(tabela as sudokuValue[]);
-  }
-
   return (
     <div>
       <div className="sudoku">
@@ -59,7 +50,7 @@ export default function SudokuRepresentation({
           />
         )}
       </div>
-      <button onClick={checarTabela}>Checar</button>
+      <button onClick={() => verificaJogo(tabela as sudokuValue[])}>Checar</button>
     </div>
   )
 }

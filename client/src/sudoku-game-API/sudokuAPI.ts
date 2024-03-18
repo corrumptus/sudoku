@@ -18,7 +18,9 @@ function getColuna(arr: sudokuValue[], index: number): sudokuValue[] {
 
 function getQuadrante(arr: sudokuValue[], index: number): sudokuValue[] {
     return arr.filter((_, i) => {
-        return i < index%3+1*27 && (i%9 === index || i%9 === index + 1 || i%9 === index + 2);
+        return (i >= ((index%3)*3)+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+(27*((index - (index%3))/3))) ||
+        (i >= ((index%3)*3)+9+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+9+(27*((index - (index%3))/3))) ||
+        (i >= ((index%3)*3)+18+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+18+(27*((index - (index%3))/3)));
     });
 }
 
@@ -39,11 +41,9 @@ function numeroRepetidoColuna(arr: sudokuValue[]): boolean {
 }
 
 function numeroRepetidoQuadrante(arr: sudokuValue[]): boolean {
-    for (let i = 0; i < 9; i++) {
-        console.log(getQuadrante(arr, i))
+    for (let i = 0; i < 9; i++)
         if (repete(getQuadrante(arr, i)))
             return true;
-    }
 
     return false;
 }

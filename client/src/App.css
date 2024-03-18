@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+.sudoku {
+  display: grid;
+  grid-template-areas: '_ _ _ _ _ _ _ _ _';
+}

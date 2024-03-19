@@ -18,9 +18,24 @@ function getColuna(arr: sudokuValue[], index: number): sudokuValue[] {
 
 function getQuadrante(arr: sudokuValue[], index: number): sudokuValue[] {
     return arr.filter((_, i) => {
-        return (i >= ((index%3)*3)+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+(27*((index - (index%3))/3))) ||
-        (i >= ((index%3)*3)+9+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+9+(27*((index - (index%3))/3))) ||
-        (i >= ((index%3)*3)+18+(27*((index - (index%3))/3)) && i < (((index%3)+1)*3)+18+(27*((index - (index%3))/3)));
+        const numeroDelimitadoPeloComecoDoQuadrante = (i: number, index: number, linha: 0|1|2): boolean =>
+            i >= ((index%3)*3)+(9*linha)+(27*((index - (index%3))/3));
+
+        const numeroDelimitadoPeloFimDoQuadrante = (i: number, index: number, linha: 0|1|2): boolean =>
+            i < (((index%3)+1)*3)+(9*linha)+(27*((index - (index%3))/3));
+
+
+        const numeroEstaNaPrimeiraLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 0) &&
+            numeroDelimitadoPeloFimDoQuadrante(i, index, 0);
+
+        const numeroEstaNaSegundaLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 1) &&
+            numeroDelimitadoPeloFimDoQuadrante(i, index, 1);
+
+        const numeroEstaNaTerceiraLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 2) &&
+            numeroDelimitadoPeloFimDoQuadrante(i, index, 2);
+
+
+        return numeroEstaNaPrimeiraLinhaDoQuadrante || numeroEstaNaSegundaLinhaDoQuadrante || numeroEstaNaTerceiraLinhaDoQuadrante;
     });
 }
 

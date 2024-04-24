@@ -4,7 +4,7 @@ import { getNovoJogo } from './sudoku-game-API/sudokuAPI'
 
 function App() {
   return (
-    <div>
+    <div className="app">
       <h1>Sudoku</h1>
       <SudokuRepresentation
         posicoes={getNovoJogo()}

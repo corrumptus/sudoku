@@ -38,7 +38,7 @@ export default function SudokuRepresentation({
   }
 
   return (
-    <div>
+    <div className="sudoku_rapper">
       <div className="sudoku">
         {tabela.map((valor, i) =>
           <SudokuCell
@@ -50,7 +50,7 @@ export default function SudokuRepresentation({
           />
         )}
       </div>
-      <button onClick={() => verificaJogo(tabela as sudokuValue[])}>Checar</button>
+      <button onClick={() => verificaJogo(tabela)}>Checar</button>
     </div>
   )
 }

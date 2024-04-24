@@ -24,7 +24,10 @@ export default function SudokuCell({
 
   return (
     <div className="sudoku_cell">
-      <select onChange={e => atualizaValor(posicao, getValue(e.currentTarget.value))}>
+      <select
+        className="sudoku_select"
+        onChange={e => atualizaValor(posicao, getValue(e.currentTarget.value))}
+      >
         <option></option>
         <option value={1}>1</option>
         <option value={2}>2</option>

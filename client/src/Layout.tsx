@@ -4,7 +4,7 @@ import './App.css'
 export default function Layout() {
   return (
     <>
-      <nav>
+      <nav className="main-navbar">
         <Link to="/">Home</Link>
         <Link to="/jogar">Jogar</Link>
         <Link to="/quemsomos">Quem somos</Link>

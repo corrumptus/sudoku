@@ -108,3 +108,10 @@
 .sudoku_cell:nth-child(79), .sudoku_cell:nth-child(80), .sudoku_cell:nth-child(81) {
   background-color: black;
 }
+
+.quemsomos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}

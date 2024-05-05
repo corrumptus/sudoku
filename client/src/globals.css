@@ -12,6 +12,13 @@
   background-color: gray;
 }
 
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+}
+
 .jogar {
   height: 100%;
   display: flex;

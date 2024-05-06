@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SudokuCell from "./SudokuCell";
-import { verificaJogo } from "../sudoku-game-API/sudokuAPI";
+import { verificaJogo } from "../../sudoku-game-API/sudokuAPI";
 
 export type sudokuRange = 0|1|2|3|4|5|6|7|8;
 export type sudokuValue = 1|2|3|4|5|6|7|8|9;

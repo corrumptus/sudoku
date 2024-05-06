@@ -1,5 +1,7 @@
 export default function DevAPI() {
   return (
-    <div>DevAPI</div>
+    <div className="api">
+      
+    </div>
   )
 }

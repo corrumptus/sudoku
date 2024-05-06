@@ -1,0 +1,281 @@
+[
+    {
+        "name": "jogos",
+        "paths": [
+            {
+                "path": "/jogos",
+                "requests": [
+                    {
+                        "description": "returns all the sudoku games",
+                        "method": "GET",
+                        "parameters": [
+                            {
+                                "name": "page",
+                                "description": "The page id",
+                                "type": "number",
+                                "required": true
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "[[\n\t{\n\t\tx:1,\n\t\ty:0,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:3,\n\t\ty:0,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:5,\n\t\ty:0,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:7,\n\t\ty:0,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:2,\n\t\ty:1,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:1,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:5,\n\t\ty:1,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:6,\n\t\ty:1,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:0,\n\t\ty:2,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:8,\n\t\ty:2,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:0,\n\t\ty:3,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:3,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:5,\n\t\ty:3,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:8,\n\t\ty:3,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:2,\n\t\ty:4,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:4,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:0,\n\t\ty:5,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:5,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:5,\n\t\ty:5,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:8,\n\t\ty:5,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:0,\n\t\ty:6,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:8,\n\t\ty:6,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:2,\n\t\ty:7,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:7,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:5,\n\t\ty:7,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:7,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:1,\n\t\ty:8,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:3,\n\t\ty:8,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:5,\n\t\ty:8,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:7,\n\t\ty:8,\n\t\tvalor:7\n\t}\n]]",
+                                "meanings": "A array with 20 of the blocked values of the sudoku table and its positions started in 0",
+                                "typescriptType": "{x:0|1|2|3|4|5|6|7|8,y:0|1|2|3|4|5|6|7|8,valor:1|2|3|4|5|6|7|8|9}[]"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/jogos/new",
+                "requests": [
+                    {
+                        "description": "returns a new random sudoku game",
+                        "method": "GET",
+                        "parameters": [
+                            {
+                                "name": "playerName",
+                                "description": "The name of the player for new proposals",
+                                "type": "string",
+                                "required": false
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "[\n\t{\n\t\tx:1,\n\t\ty:0,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:3,\n\t\ty:0,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:5,\n\t\ty:0,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:7,\n\t\ty:0,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:2,\n\t\ty:1,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:1,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:5,\n\t\ty:1,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:6,\n\t\ty:1,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:0,\n\t\ty:2,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:8,\n\t\ty:2,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:0,\n\t\ty:3,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:3,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:5,\n\t\ty:3,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:8,\n\t\ty:3,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:2,\n\t\ty:4,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:4,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:0,\n\t\ty:5,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:5,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:5,\n\t\ty:5,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:8,\n\t\ty:5,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:0,\n\t\ty:6,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:8,\n\t\ty:6,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:2,\n\t\ty:7,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:7,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:5,\n\t\ty:7,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:7,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:1,\n\t\ty:8,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:3,\n\t\ty:8,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:5,\n\t\ty:8,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:7,\n\t\ty:8,\n\t\tvalor:7\n\t}\n]",
+                                "meanings": "The blocked values of the sudoku table and its positions started in 0",
+                                "typescriptType": "{x:0|1|2|3|4|5|6|7|8,y:0|1|2|3|4|5|6|7|8,valor:1|2|3|4|5|6|7|8|9}[]"
+                            },
+                            {
+                                "code": 404,
+                                "exampleReturn": "The player already finishes the entire sudoku table possibilities",
+                                "meanings": "The player already finishes the 6.670.903.752.021.072.936.960 sudoku game possibilities and its impossible to generate a new sudoku game table(only with passed playerName parameter)",
+                                "typescriptType": "string"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/jogos/:id",
+                "requests": [
+                    {
+                        "description": "returns the especified sudoku game",
+                        "method": "GET",
+                        "parameters": [
+
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "[\n\t{\n\t\tx:1,\n\t\ty:0,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:3,\n\t\ty:0,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:5,\n\t\ty:0,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:7,\n\t\ty:0,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:2,\n\t\ty:1,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:1,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:5,\n\t\ty:1,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:6,\n\t\ty:1,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:0,\n\t\ty:2,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:8,\n\t\ty:2,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:0,\n\t\ty:3,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:3,\n\t\ty:3,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:5,\n\t\ty:3,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:8,\n\t\ty:3,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:2,\n\t\ty:4,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:4,\n\t\tvalor:3\n\t},\n\t{\n\t\tx:0,\n\t\ty:5,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:5,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:5,\n\t\ty:5,\n\t\tvalor:1\n\t},\n\t{\n\t\tx:8,\n\t\ty:5,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:0,\n\t\ty:6,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:8,\n\t\ty:6,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:2,\n\t\ty:7,\n\t\tvalor:7\n\t},\n\t{\n\t\tx:3,\n\t\ty:7,\n\t\tvalor:2\n\t},\n\t{\n\t\tx:5,\n\t\ty:7,\n\t\tvalor:6\n\t},\n\t{\n\t\tx:6,\n\t\ty:7,\n\t\tvalor:9\n\t},\n\t{\n\t\tx:1,\n\t\ty:8,\n\t\tvalor:4\n\t},\n\t{\n\t\tx:3,\n\t\ty:8,\n\t\tvalor:5\n\t},\n\t{\n\t\tx:5,\n\t\ty:8,\n\t\tvalor:8\n\t},\n\t{\n\t\tx:7,\n\t\ty:8,\n\t\tvalor:7\n\t}\n]",
+                                "meanings": "the blocked values of the sudoku table and its positions started in 0",
+                                "typescriptType": "{x:0|1|2|3|4|5|6|7|8,y:0|1|2|3|4|5|6|7|8,valor:1|2|3|4|5|6|7|8|9}[]"
+                            },
+                            {
+                                "code": 400,
+                                "exampleReturn": "Invalid sudoku table Id",
+                                "meanings": "The passed id parameter isn't a number or the id is negative or gatter than 6.670.903.752.021.072.936.960",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 404,
+                                "exampleReturn": "Sudoku table not found",
+                                "meanings": "The specified sudoku table doesn't exists",
+                                "typescriptType": "string"
+                            }
+                        ]
+                    },
+                    {
+                        "description": "post a new time",
+                        "method": "POST",
+                        "parameters": [
+                            {
+                                "name": "playerName",
+                                "description": "The name of the player",
+                                "type": "string",
+                                "required": true
+                            },
+                            {
+                                "name": "time",
+                                "description": "The time to complete the sudoku table in seconds",
+                                "type": "number",
+                                "required": true
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "",
+                                "meanings": "Nothing",
+                                "typescriptType": "undefined"
+                            },
+                            {
+                                "code": 400,
+                                "exampleReturn": "Time must be a valid amount of seconds",
+                                "meanings": "The passed time parameter isn't a number or the amount of seconds passed is negative",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 401,
+                                "exampleReturn": "The player with the given name isn't registered",
+                                "meanings": "The passed player name parameter isn't a registered player",
+                                "typescriptType": "string"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/jogo/:id/ranking",
+                "requests": [
+                    {
+                        "description": "get the ranking of the specified sudoku table",
+                        "method": "GET",
+                        "parameters": [
+
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "[{playerName:\"Lucas Lazarini\",time:600}]",
+                                "meanings": "A array of the time and the name of the players that finishes the specified sudoku table",
+                                "typescriptType": "{playerName:string,time:number}[]"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "user",
+        "paths": [
+            {
+                "path": "/user",
+                "requests": [
+                    {
+                        "description": "get the player's rankings of the finished tables",
+                        "method": "POST",
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "description": "The name of the player",
+                                "type": "string",
+                                "required": true
+                            },
+                            {
+                                "name": "password",
+                                "description": "The password of the player",
+                                "type": "string",
+                                "required": true
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "[{table:1,time:600,ranking:10}]",
+                                "meanings": "A array of the sudoku table id, finished time in seconds and player's rank started in 1",
+                                "typescriptType": "{table:number,time:number,ranking:number}[]"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/user/login",
+                "requests": [
+                    {
+                        "description": "Send a request to login in the site",
+                        "method": "POST",
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "description": "The name of the player",
+                                "type": "string",
+                                "required": true
+                            },
+                            {
+                                "name": "password",
+                                "description": "The password of the player",
+                                "type": "string",
+                                "required": true
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "Lucas Lazarini",
+                                "meanings": "The name of the player that logs in",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 401,
+                                "exampleReturn": "The name and/or the password are incorrect",
+                                "meanings": "The passed name parameter and/or the passed password parameter are incorrect",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 404,
+                                "exampleReturn": "The player with the given name isn't registered",
+                                "meanings": "The passed player name parameter isn't a registered player",
+                                "typescriptType": "string"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "path": "/user/signup",
+                "requests": [
+                    {
+                        "description": "Send a request to sign up in the site",
+                        "method": "POST",
+                        "parameters": [
+                            {
+                                "name": "name",
+                                "description": "The name of the player",
+                                "type": "string",
+                                "required": true
+                            },
+                            {
+                                "name": "password",
+                                "description": "The password of the player",
+                                "type": "string",
+                                "required": true
+                            },
+                            {
+                                "name": "confirmPassword",
+                                "description": "The password of the player for confirmation",
+                                "type": "string",
+                                "required": true
+                            }
+                        ],
+                        "returns": [
+                            {
+                                "code": 200,
+                                "exampleReturn": "Lucas Lazarini",
+                                "meanings": "The name of the player that signs up",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 401,
+                                "exampleReturn": "The confirm password and the password aren't equals",
+                                "meanings": "The passed confirm password parameter ins't equals to the passed password parameter",
+                                "typescriptType": "string"
+                            },
+                            {
+                                "code": 403,
+                                "exampleReturn": "The given name already exists",
+                                "meanings": "The passed name parameter corresponds to a registered player name",
+                                "typescriptType": "string"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]

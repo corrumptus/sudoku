@@ -1,4 +1,4 @@
-import SudokuRepresentation from "../components/SudokuRepresentation";
+import SudokuRepresentation from "../components/jogar/SudokuRepresentation";
 import { getNovoJogo } from "../sudoku-game-API/sudokuAPI";
 
 export default function Jogar() {

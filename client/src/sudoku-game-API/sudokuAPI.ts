@@ -1,4 +1,4 @@
-import { sudokuRange, sudokuValue } from "../components/SudokuRepresentation";
+import { sudokuRange, sudokuValue } from "../components/jogar/SudokuRepresentation";
 
 function repete(arr: sudokuValue[]): boolean {
     return new Set(arr).size !== 9;

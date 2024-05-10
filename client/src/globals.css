@@ -13,6 +13,14 @@
   background-color: gray;
 }
 
+.main-navbar a {
+  color: white;
+}
+
+.main-navbar a:hover {
+  color: black;
+}
+
 .home {
   display: flex;
   flex-direction: column;

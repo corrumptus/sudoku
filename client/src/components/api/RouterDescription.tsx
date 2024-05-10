@@ -28,7 +28,12 @@ export default function RouterDescription({
 }: {
   description: RouteDescription
 }) {
-  const [selecteds, setSelecteds] = useState<number[][]>(description.paths.map(path => path.requests.map((_, i) => i)));
+  const [selecteds, setSelecteds] = useState<number[][]>(
+    description.paths
+      .map(path => path.requests
+        .map((_, i) => i)
+      )
+  );
 
   function changeSelection(pathIndex: number, requestIndex: number, returnIndex: number) {
     setSelecteds(prev => {
@@ -44,16 +49,16 @@ export default function RouterDescription({
     <main>
       <h1>{description.name}</h1>
       {description.paths.map((path, pathIndex) =>
-        <div>
+        <div key={path.path}>
           <h2>{path.path}</h2>
           {path.requests.map((req, reqIndex) =>
-            <div>
+            <div key={req.method}>
               <h3>{req.method}</h3>
               <p>{req.description}</p>
               <h4>Parameters</h4>
               <div>
                 {req.parameters.map(param =>
-                  <div>
+                  <div key={param.name}>
                     <h5>{param.name} ({param.type}) - {param.required ? "Required" : "Not required"}</h5>
                     <p>{param.description}</p>
                   </div>
@@ -63,7 +68,11 @@ export default function RouterDescription({
               <div>
                 <nav>
                   {req.returns.map((ret, i) =>
-                    <button key={i} onClick={() => changeSelection(pathIndex, reqIndex, i)} className="route_nav_button">
+                    <button
+                      key={i}
+                      onClick={() => changeSelection(pathIndex, reqIndex, i)}
+                      className="route_nav_button"
+                    >
                       {ret.code}
                     </button>
                   )}

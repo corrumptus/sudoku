@@ -9,11 +9,16 @@ export default function DevAPI() {
     <div className="api">
       <nav>
         {backendRoutes.map((routes, i) =>
-          <button key={i} onClick={() => setRoute(i)} className="route_nav_button">
+          <button
+            key={i}
+            onClick={() => setRoute(i)}
+            className={`${route === i ? "route_nav_button_active" : ""}`}
+          >
             {routes.name}
           </button>
         )}
       </nav>
+      <div id="folder"></div>
       <RouterDescription
         description={backendRoutes[route]}
       />

@@ -53,6 +53,7 @@
   border: 1px solid black;
   padding: 4px 2px;
   outline: none;
+  text-align: center;
 }
 
 .sudoku_select {

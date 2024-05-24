@@ -1,12 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import ActionBar from './ActionBar'
 import Home from './routes/Home'
 import Jogar from './routes/Jogar'
 import Quemsomos from './routes/Quemsomos'
 import DevAPI from './routes/DevAPI'
-import ActionBar from './ActionBar'
+import './index.css'
+import "./globals.css"
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>

@@ -18,7 +18,6 @@ export default function DevAPI() {
           </button>
         )}
       </nav>
-      <div id="folder"></div>
       <RouterDescription
         description={backendRoutes[route]}
       />

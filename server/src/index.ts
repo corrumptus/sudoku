@@ -41,3 +41,29 @@ api.post("/login", (req, res) => {
 
     res.json(UserResponse.ofToken(token));
 });
+
+api.post("/login/token", (req, res) => {
+    const { token } = req.body;
+
+    if (token === undefined || token.trim() === "") {
+        res.status(400).json(UserResponse.ofError("Name cannot be blank"));
+        return;
+    }
+
+    const name = "";
+
+    if (name === undefined) {
+        res.status(400).json();
+    }
+
+    const user = UserRepository.get(name);
+
+    if (user === undefined) {
+        res.status(404).json(UserResponse.ofError("Username and/or password are incorrect"));
+        return;
+    }
+
+    const newToken = "";
+
+    res.json(UserResponse.ofToken(newToken));
+});

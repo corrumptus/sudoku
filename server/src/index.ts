@@ -10,3 +10,7 @@ api.listen(PORT, () => console.log(`server starts at port ${PORT}`));
 api.use(json());
 
 api.use(cors());
+
+api.get("/", (_, res) => {
+    res.redirect("sudoku-pi-umber.vercel.app/api");
+});

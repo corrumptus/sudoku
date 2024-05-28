@@ -9,5 +9,5 @@ export default class TokenService {
 }
 
 export type TokenPayLoad = {
-
+    name: string;
 }

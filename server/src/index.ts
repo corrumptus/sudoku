@@ -21,12 +21,12 @@ api.get("/", (_, res) => {
 api.post("/login", (req, res) => {
     const { name, password } = req.body;
 
-    if (name === undefined || name.trim() === "") {
+    if (name === undefined || typeof name !== "string" || name.trim() === "") {
         res.status(400).json(UserResponse.ofError("Name cannot be blank"));
         return;
     }
 
-    if (password === undefined || password.trim() === "") {
+    if (password === undefined || typeof password !== "string" || password.trim() === "") {
         res.status(400).json(UserResponse.ofError("Password cannot be blank"));
         return;
     }
@@ -46,7 +46,7 @@ api.post("/login", (req, res) => {
 api.post("/login/token", (req, res) => {
     const { token } = req.body;
 
-    if (token === undefined || token.trim() === "") {
+    if (token === undefined || typeof token !== "string" || token.trim() === "") {
         res.status(400).json(UserResponse.ofError("Name cannot be blank"));
         return;
     }
@@ -73,12 +73,12 @@ api.post("/login/token", (req, res) => {
 api.post("/signup", (req, res) => {
     const { name, password } = req.body;
 
-    if (name === undefined || name.trim() === "") {
+    if (name === undefined || typeof name !== "string" || name.trim() === "") {
         res.status(400).json(UserResponse.ofError("Name cannot be blank"));
         return;
     }
 
-    if (password === undefined || password.trim() === "") {
+    if (password === undefined || typeof password !== "string" || password.trim() === "") {
         res.status(400).json(UserResponse.ofError("Password cannot be blank"));
         return;
     }

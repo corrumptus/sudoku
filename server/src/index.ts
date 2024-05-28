@@ -69,3 +69,28 @@ api.post("/login/token", (req, res) => {
 
     res.json(UserResponse.ofToken(newToken));
 });
+
+api.post("/signup", (req, res) => {
+    const { name, password } = req.body;
+
+    if (name === undefined || name.trim() === "") {
+        res.status(400).json(UserResponse.ofError("Name cannot be blank"));
+        return;
+    }
+
+    if (password === undefined || password.trim() === "") {
+        res.status(400).json(UserResponse.ofError("Password cannot be blank"));
+        return;
+    }
+
+    const user = UserRepository.create(name, password);
+
+    if (user === undefined) {
+        res.status(409).json(UserResponse.ofError(`User with the name ${name} already exists`));
+        return;
+    }
+
+    const token = TokenService.newToken(name);
+
+    res.status(201).json(UserResponse.ofToken(token));
+});

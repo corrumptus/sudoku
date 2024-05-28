@@ -16,4 +16,4 @@ api.get("/", (_, res) => {
     res.redirect("sudoku-pi-umber.vercel.app/api");
 });
 
-api.use(userRoute);
+api.use("/", userRoute);

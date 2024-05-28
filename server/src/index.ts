@@ -2,6 +2,7 @@ import express, { Express, json } from 'express';
 import cors from "cors";
 import UserResponse from './utils/UserResponse';
 import UserRepository from './repository/UserRepository';
+import TokenService from './service/TokenService';
 
 const PORT: number = Number(process.env.PORT) || 5000;
 
@@ -37,7 +38,7 @@ api.post("/login", (req, res) => {
         return;
     }
 
-    const token = "";
+    const token = TokenService.newToken(name);
 
     res.json(UserResponse.ofToken(token));
 });
@@ -50,20 +51,21 @@ api.post("/login/token", (req, res) => {
         return;
     }
 
-    const name = "";
+    const payload = TokenService.validate(token);
 
-    if (name === undefined) {
-        res.status(400).json();
+    if (payload === undefined) {
+        res.status(401).json(UserResponse.ofError("Invalid token"));
+        return;
     }
 
-    const user = UserRepository.get(name);
+    const user = UserRepository.get(payload.name);
 
     if (user === undefined) {
         res.status(404).json(UserResponse.ofError("Username and/or password are incorrect"));
         return;
     }
 
-    const newToken = "";
+    const newToken = TokenService.newToken(user.name);
 
     res.json(UserResponse.ofToken(newToken));
 });

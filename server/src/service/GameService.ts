@@ -1,4 +1,4 @@
-import { Game } from "../repository/GameRepository";
+import { Game, Ranking } from "../repository/GameRepository";
 
 export default class GameService {
     static getAll(page: number): Game[] {
@@ -14,6 +14,10 @@ export default class GameService {
     }
 
     static getNew(name: string): Game | undefined {
+        return undefined;
+    }
+
+    static getRanking(id: number): Ranking | undefined {
         return undefined;
     }
 }

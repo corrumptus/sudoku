@@ -65,4 +65,24 @@ gameRoutes.get("/jogos/:id", (req, res) => {
     res.json(GameResponse.ofGame(game));
 });
 
+gameRoutes.get("/jogos/:id/ranking", (req, res) => {
+    const { id } = req.params;
+
+    const idNumber = Number(id);
+
+    if (isNaN(idNumber)) {
+        res.status(400).json(GameResponse.ofError("ID must be a valid number"));
+        return;
+    }
+
+    const ranking = GameService.getRanking(idNumber);
+
+    if (ranking === undefined) {
+        res.status(404).json(GameResponse.ofError("Game not found"));
+        return;
+    }
+
+    res.json(GameResponse.ofRanking(ranking));
+});
+
 export default gameRoutes;

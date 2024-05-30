@@ -10,7 +10,11 @@ export default class GameService {
     }
 
     static getRandom(): Game {
-        return [];
+        const max = GameRepository.amount;
+
+        const random = Math.floor(Math.random() * max);
+
+        return GameRepository.get(random) as Game;
     }
 
     static getNew(name: string): Game | undefined {

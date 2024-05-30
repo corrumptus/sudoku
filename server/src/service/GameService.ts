@@ -22,7 +22,7 @@ export default class GameService {
     }
 
     static getRanking(id: number): Ranking | undefined {
-        return undefined;
+        return GameRepository.getRanking(id);
     }
 
     static newTime(idNumber: number, name: string, time: number): Game | undefined {

@@ -45,4 +45,24 @@ gameRoutes.get("/jogos/new", (req, res) => {
     res.json(GameResponse.ofGame(newGame));
 });
 
+gameRoutes.get("/jogos/:id", (req, res) => {
+    const { id } = req.params;
+
+    const idNumber = Number(id);
+
+    if (isNaN(idNumber)) {
+        res.status(400).json(GameResponse.ofError("ID must be a valid number"));
+        return;
+    }
+
+    const game = GameService.get(idNumber);
+
+    if (game === undefined) {
+        res.status(404).json(GameResponse.ofError(`Game not found with the ID ${id}`));
+        return;
+    }
+
+    res.json(GameResponse.ofGame(game));
+});
+
 export default gameRoutes;

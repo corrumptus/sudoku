@@ -1,4 +1,4 @@
-import GameRespository, { Game } from "../repository/GameRepository";
+import { Game } from "../repository/GameRepository";
 
 export default class GameService {
     static getAll(page: number): Game[] {
@@ -7,5 +7,9 @@ export default class GameService {
 
     static getRandom(): Game {
         return [];
+    }
+
+    static getNew(name: string): Game | undefined {
+        return undefined;
     }
 }

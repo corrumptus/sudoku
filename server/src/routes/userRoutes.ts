@@ -34,7 +34,7 @@ userRoute.post("/login/token", (req, res) => {
     const { token } = req.body;
 
     if (token === undefined || typeof token !== "string" || token.trim() === "") {
-        res.status(400).json(UserResponse.ofError("Name cannot be blank"));
+        res.status(400).json(UserResponse.ofError("Token cannot be blank"));
         return;
     }
 

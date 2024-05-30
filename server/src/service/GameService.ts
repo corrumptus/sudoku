@@ -6,7 +6,7 @@ export default class GameService {
     }
 
     static get(id: number): Game | undefined {
-        return undefined;
+        return GameRepository.get(id);
     }
 
     static getRandom(): Game {

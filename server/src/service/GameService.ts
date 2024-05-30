@@ -1,8 +1,8 @@
-import { Game, Ranking } from "../repository/GameRepository";
+import GameRepository, { Game, Ranking } from "../repository/GameRepository";
 
 export default class GameService {
     static getAll(page: number): Game[] {
-        return [];
+        return GameRepository.getAll(page);
     }
 
     static get(id: number): Game | undefined {

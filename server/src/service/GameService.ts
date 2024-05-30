@@ -5,6 +5,10 @@ export default class GameService {
         return [];
     }
 
+    static get(id: number): Game | undefined {
+        return undefined;
+    }
+
     static getRandom(): Game {
         return [];
     }

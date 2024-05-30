@@ -20,4 +20,8 @@ export default class GameService {
     static getRanking(id: number): Ranking | undefined {
         return undefined;
     }
+
+    static newTime(idNumber: number, name: string, time: number): Game | undefined {
+        return undefined;
+    }
 }

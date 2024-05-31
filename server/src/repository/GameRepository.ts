@@ -19,6 +19,14 @@ export default class GameRepository {
         return undefined;
     }
 
+    static hasNonCompletedGames(name: string): boolean {
+        return false;
+    }
+
+    static getNonCompletedGames(name: string): Game[] {
+        return [];
+    }
+
     static get amount(): number {
         return -1;
     }

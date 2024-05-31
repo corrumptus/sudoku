@@ -1,4 +1,5 @@
 import GameRepository, { Game, Ranking } from "../repository/GameRepository";
+import GameGenarator from "../utils/GameGenerator";
 
 export default class GameService {
     static getAll(page: number): Game[] {
@@ -10,7 +11,7 @@ export default class GameService {
     }
 
     static getRandom(): Game {
-        const max = GameRepository.amount;
+        const max = parseInt(GameRepository.amount.toString());
 
         const random = Math.floor(Math.random() * max);
 
@@ -18,7 +19,18 @@ export default class GameService {
     }
 
     static getNew(name: string): Game | undefined {
-        return undefined;
+        if (GameRepository.hasNonCompletedGames(name))
+            return GameRepository.getNonCompletedGames(name)[0];
+
+        if (GameRepository.amount === GameRepository.MAX_AMOUNT_OF_GAMES) {
+            return undefined;
+        }
+
+        const newGame = GameGenarator.generate();
+
+        const savedGame = GameRepository.newGame(newGame);
+
+        return savedGame;
     }
 
     static getRanking(id: number): Ranking | undefined {

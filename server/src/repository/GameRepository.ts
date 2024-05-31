@@ -7,6 +7,10 @@ export default class GameRepository {
         return undefined;
     }
 
+    static newGame(game: Omit<Game, "id">): Game | undefined {
+        return undefined;
+    }
+
     static newTime(id: number, name: string, time: number): Game | undefined {
         return undefined;
     }
@@ -26,7 +30,10 @@ type LockedCell = {
     valor:1|2|3|4|5|6|7|8|9
 }
 
-export type Game = LockedCell[]
+export type Game = {
+    id: number;
+    lockedCells: LockedCell[];
+}
 
 export type Ranking = {
     game: Game;

@@ -1,4 +1,6 @@
 export default class GameRepository {
+    static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
+
     static getAll(page: number): Game[] {
         return [];
     }
@@ -27,8 +29,8 @@ export default class GameRepository {
         return [];
     }
 
-    static get amount(): number {
-        return -1;
+    static get amount(): bigint {
+        return -1n;
     }
 }
 

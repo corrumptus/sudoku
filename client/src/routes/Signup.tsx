@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 export default function Signup() {
   const [ signUp, setSignUp ] = useState<{
@@ -18,6 +18,16 @@ export default function Signup() {
     setSignUp(prev => ({...prev, [field]: newValue}));
   }
 
+  function clear(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
+    e.preventDefault();
+
+    setSignUp({
+      name: "",
+      password: "",
+      confirmPassword: ""
+    });
+  }
+
   return (
     <div>
       <form>
@@ -35,7 +45,7 @@ export default function Signup() {
           <input type="text" id="confirmPassword" value={signUp.confirmPassword} onChange={handleChange} />
         </div>
         <div>
-          <button>Limpar</button>
+          <button onClick={clear}>Limpar</button>
           <button>Entrar</button>
         </div>
       </form>

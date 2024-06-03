@@ -1,4 +1,16 @@
+import { useState } from "react";
+
 export default function Signup() {
+  const [ signUp, setSignUp ] = useState<{
+    name: string,
+    password: string,
+    confirmPassword: string
+  }>({
+    name: "",
+    password: "",
+    confirmPassword: ""
+  });
+
   return (
     <div>
       <form>

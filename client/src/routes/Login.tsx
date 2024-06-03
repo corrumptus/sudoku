@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, MouseEvent, useState } from "react";
 
 export default function Login() {
   const [ login, setLogin ] = useState<{name: string, password: string}>({ name: "", password: "" });
@@ -8,6 +8,15 @@ export default function Login() {
     const newValue = e.target.value;
 
     setLogin(prev => ({...prev, [field]: newValue}));
+  }
+
+  function clear(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
+    e.preventDefault();
+
+    setLogin({
+      name: "",
+      password: ""
+    });
   }
 
   return (
@@ -23,7 +32,7 @@ export default function Login() {
           <input type="text" id="password" value={login.password} onChange={handleChange} />
         </div>
         <div>
-          <button>Limpar</button>
+          <button onClick={clear}>Limpar</button>
           <button>Login</button>
         </div>
       </form>

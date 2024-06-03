@@ -1,4 +1,4 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
 
 export default function Signup() {
   const [ signUp, setSignUp ] = useState<{
@@ -18,6 +18,34 @@ export default function Signup() {
     setSignUp(prev => ({...prev, [field]: newValue}));
   }
 
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault();
+
+    if (signUp.password !== signUp.confirmPassword) {
+      alert("A senha e a senha de confirmação devem ser iguais");
+      return;
+    }
+
+    const response = await fetch("http://localhost:5000/signup", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify({ name: signUp.name, password: signUp.password })
+    });
+
+    if (!response.ok) {
+      const { error }: { error: string } = await response.json();
+
+      alert(error);
+      return;
+    }
+
+    const { token }: { token: string } = await response.json();
+
+    localStorage.setItem("sudoku-token", token);
+  }
+
   function clear(e: MouseEvent<HTMLButtonElement, globalThis.MouseEvent>) {
     e.preventDefault();
 
@@ -30,7 +58,7 @@ export default function Signup() {
 
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1>Entrar</h1>
         <div>
           <label htmlFor="name">Nome</label>

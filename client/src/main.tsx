@@ -7,6 +7,7 @@ import Jogar from './routes/Jogar'
 import Quemsomos from './routes/Quemsomos'
 import DevAPI from './routes/DevAPI'
 import Login from './routes/Login'
+import Signup from './routes/Signup'
 import './index.css'
 import "./globals.css"
 
@@ -20,6 +21,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <Route path="/quemsomos" element={<Quemsomos />} />
         <Route path="/api" element={<DevAPI />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Signup />} />
       </Routes>
     </Router>
   </React.StrictMode>

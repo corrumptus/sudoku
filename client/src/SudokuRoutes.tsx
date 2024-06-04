@@ -5,6 +5,7 @@ import Jogar from "./routes/Jogar";
 import Login from "./routes/Login";
 import Quemsomos from "./routes/Quemsomos";
 import Signup from "./routes/Signup";
+import User from "./routes/User";
 
 export default function SudokuRoutes() {
   return (
@@ -15,6 +16,7 @@ export default function SudokuRoutes() {
       <Route path="/api" element={<DevAPI />} />
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
+      <Route path="/user/:name" element={<User />} />
     </Routes>
   )
 }

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import useUserInfos from "../utils/useUserInfos";
-import { numberToTime } from "../utils/utils";
 import LastTimeCard from "../components/user/LastTimeCard";
 import NonCompletedGameCard from "../components/user/NonCompletedGameCard";
+import SelfRanking from "../components/user/SelfRanking";
 
 export default function User() {
   const { name } = useParams();
@@ -28,7 +28,7 @@ export default function User() {
         </div>
         <div className="self-ranking">
           <ul>
-            {userInfos.timeRankings.map((t, i) => <li key={t+i}>{i+1}º: {numberToTime(t)}</li>)}
+            {userInfos.timeRankings.map((t, i) => <SelfRanking key={t+i} index={i} time={t} />)}
           </ul>
         </div>
         <div className="to-complete">

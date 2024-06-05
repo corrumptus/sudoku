@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import DevAPI from "./routes/DevAPI";
+import EditUser from "./routes/EditUser";
 import Home from "./routes/Home";
 import Jogar from "./routes/Jogar";
 import Login from "./routes/Login";
@@ -18,6 +19,7 @@ export default function SudokuRoutes() {
       <Route path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/user/:name" element={<User />} />
+      <Route path="/user/edit" element={<EditUser />} />
       <Route path="/ranking/:id" element={<Ranking />} />
     </Routes>
   )

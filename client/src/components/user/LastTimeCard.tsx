@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom"
+import { numberToTime } from "../../utils/utils"
+
 export default function LastTimeCard({
   game,
   time
@@ -5,7 +8,21 @@ export default function LastTimeCard({
   game: number,
   time: number
 }) {
+  const navigate = useNavigate();
+
   return (
-    <div>LastTimeCard</div>
+    <div
+      className="last-time-card"
+      onClick={() => {
+        navigate("/jogar/" + game);
+      }}
+    >
+      <div>
+        <img src="../../../public/logo.png" alt="sudoku table icon" />
+      </div>
+      <div>
+        <p>{numberToTime(time)}</p>
+      </div>
+    </div>
   )
 }

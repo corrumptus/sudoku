@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import "../styles/login.css";
 
 export default function Login() {
   const [ login, setLogin ] = useState<{name: string, password: string}>({ name: "", password: "" });

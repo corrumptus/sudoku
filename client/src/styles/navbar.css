@@ -1,9 +1,14 @@
 .main-navbar {
   padding: 10px;
   display: flex;
-  align-items: start;
-  gap: 10px;
+  align-items: center;
+  justify-content: space-between;
   background-color: gray;
+}
+
+.main-navbar div {
+  display: flex;
+  gap: 10px;
 }
 
 .main-navbar a {

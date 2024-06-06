@@ -1,6 +1,7 @@
-import { useState } from "react"
+import { useState } from "react";
 import RouterDescription from "../components/api/RouterDescription";
-import backendRoutes from "../../public/backendMap.json"
+import backendRoutes from "../../public/backendMap.json";
+import "../styles/api.css";
 
 export default function DevAPI() {
   const [ route, setRoute ] = useState(0);

@@ -1,3 +1,5 @@
+import "../styles/quem-somos.css";
+
 export default function Quemsomos() {
   return (
     <div className="quemsomos">

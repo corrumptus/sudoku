@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import usePageType, { PageType } from "./utils/usePageState";
+import "./styles/navbar.css";
 
 export default function ActionBar() {
   const pageType = usePageType();

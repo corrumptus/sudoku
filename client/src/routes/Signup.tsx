@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, MouseEvent, useState } from "react";
+import "../styles/signup.css";
 
 export default function Signup() {
   const [ signUp, setSignUp ] = useState<{
@@ -57,7 +58,7 @@ export default function Signup() {
   }
 
   return (
-    <div>
+    <div className="signup">
       <form onSubmit={handleSubmit}>
         <h1>Entrar</h1>
         <div>

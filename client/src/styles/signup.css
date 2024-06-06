@@ -1,0 +1,42 @@
+.signup {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup form {
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background-color: #ffffff55;
+}
+
+.signup h1 {
+  margin: unset;
+  font-size: 35px;
+}
+
+.signup div:not(:last-child) {
+  display: flex;
+  flex-direction: column;
+}
+
+.signup div:last-child {
+  display: flex;
+  gap: 10px;
+}
+
+.signup label {
+  font-size: 20px;
+}
+
+.signup input {
+  padding: 5px;
+  border: 1px solid;
+  border-radius: 10px;
+  font-size: 16px;
+}

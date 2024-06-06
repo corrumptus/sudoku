@@ -1,0 +1,52 @@
+.api {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background-color: orange;
+  color: black
+}
+
+.api > nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  padding-bottom: unset;
+  background-color: #6d6d6d;
+}
+
+.api > nav button {
+  background-color: orange;
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+  border-bottom: 1px solid black;
+  outline: none;
+}
+
+.api > nav button.route_nav_button_active {
+  border-bottom: none;
+}
+
+.api main {
+  height: 100%;
+  padding: 10px;
+  margin: 10px;
+  overflow: auto;
+  background-color: white;
+}
+
+.api main h1 {
+  text-align: center;
+  margin: unset;
+}
+
+.api main nav {
+  display: flex;
+  gap: 10px;
+}
+
+.api main pre {
+  max-height: 200px;
+  overflow: auto;
+}

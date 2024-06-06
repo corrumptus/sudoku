@@ -1,0 +1,15 @@
+.main-navbar {
+  padding: 10px;
+  display: flex;
+  align-items: start;
+  gap: 10px;
+  background-color: gray;
+}
+
+.main-navbar a {
+  color: white;
+}
+
+.main-navbar a:hover {
+  color: black;
+}

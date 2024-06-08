@@ -16,19 +16,24 @@ export default function Ranking() {
 
   return (
     <div className="ranking">
+      <div>
+        <h1>Game {id}</h1>
+      </div>
       <div className="table-container">
-        <table>
-          <thead>
-            <tr>
-              <th>Colocação</th>
-              <th>Jogador</th>
-              <th>Tempo</th>
-            </tr>
-          </thead>
-          <tbody>
-            {gameRanking.map((r, i) => <GameRanking key={r.name} index={i} ranking={r} />)}
-          </tbody>
-        </table>
+        <div className="table-inner-container">
+          <table>
+            <thead>
+              <tr>
+                <th>Colocação</th>
+                <th>Jogador</th>
+                <th>Tempo</th>
+              </tr>
+            </thead>
+            <tbody>
+              {gameRanking.map((r, i) => <GameRanking key={r.name} index={i} ranking={r} />)}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="button-container">
         <button onClick={() => navigate("/jogar/" + id)}>Jogar</button>

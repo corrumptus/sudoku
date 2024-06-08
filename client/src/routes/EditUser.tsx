@@ -1,5 +1,6 @@
 import { ChangeEvent, MouseEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/edit-user.css";
 
 type EditType = "name" | "pass" | undefined;
 

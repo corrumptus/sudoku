@@ -3,6 +3,7 @@ import useUserInfos from "../utils/useUserInfos";
 import LastTimeCard from "../components/user/LastTimeCard";
 import NonCompletedGameCard from "../components/user/NonCompletedGameCard";
 import SelfRanking from "../components/user/SelfRanking";
+import "../styles/user-name.css";
 
 export default function User() {
   const { name } = useParams();

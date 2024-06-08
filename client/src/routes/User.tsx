@@ -19,6 +19,7 @@ export default function User() {
   return (
     <div className="user">
       <div className="total">
+        <p>{userInfos.name}</p>
         <p>Total: {userInfos.totalFinished}</p>
       </div>
       <div className="container">

@@ -1,0 +1,69 @@
+.edit-user {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.edit-user div.door {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  background-color: #5b5b5b;
+  transition: all 1s ease;
+}
+
+.edit-user div.door.left {
+  left: 0px;
+  border-right: 0px solid #797979;
+  box-shadow: inset -4px 0px 15px -10px black;
+}
+
+.edit-user div.door.left.open {
+  width: calc(25% - 4px);
+  border-right: 4px solid #797979;
+}
+
+.edit-user div.door.right {
+  right: 0px;
+  border-left: 0px solid #797979;
+  box-shadow: inset 4px 0px 15px -10px black;
+}
+
+.edit-user div.door.right.open {
+  width: calc(25% - 4px);
+  border-left: 4px solid #797979;
+}
+
+.edit-user div.form {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-user div.form-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-user div.form-container div {
+  display: flex;
+  flex-direction: column;
+}
+
+.edit-user input {
+  border: 1px solid black;
+  padding: 5px;
+  border-radius: 10px;
+}

@@ -1,0 +1,177 @@
+.user {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: auto;
+}
+
+.user.not-found {
+  align-items: center;
+  justify-content: center;
+}
+
+.user div.total {
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 10px;
+}
+
+.user div.total p {
+  padding: 5px;
+  font-weight: bold;
+  background-color: #878787;
+  border-radius: 10px;
+  margin: unset;
+}
+
+.user div.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 30px;
+}
+
+.user div.last-times {
+  width: max(250px, calc(50% - 50px));
+  height: max(250px, calc(50% - 50px));
+  padding: 10px;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: black;
+  background-color: #64748b;
+}
+
+.user div.last-times h2 {
+  margin: unset;
+  text-align: center;
+}
+
+.user div.last-times ul {
+  display: flex;
+  align-items: center;
+  padding: unset;
+  margin: unset;
+  list-style: none;
+  gap: 10px;
+  overflow: auto;
+  height: 100%;
+}
+
+.user div.last-time-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px;
+  border-radius: 10px;
+  background-color: #c7c7c7;
+  cursor: pointer;
+}
+
+.user div.last-time-card p {
+  margin: unset;
+  font-size: 20px;
+}
+
+.user div.last-times img {
+  width: 50px;
+  height: 50px;
+}
+
+.user div.self-ranking {
+  width: max(250px, calc(50% - 50px));
+  height: max(250px, calc(50% - 50px));
+  padding: 10px;
+  border: 2px solid #cbd5e1;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: black;
+  background-color: #64748b;
+}
+
+.user div.self-ranking h2 {
+  margin: unset;
+  text-align: center;
+}
+
+.user div.self-ranking ul {
+  display: flex;
+  flex-direction: column;
+  padding: unset;
+  margin: unset;
+  list-style: none;
+  overflow: auto;
+}
+
+.user li.self-ranking-card {
+  font-size: 20px;
+  border-bottom: 1px solid black;
+  padding: 5px;
+}
+
+.user li.self-ranking-card:nth-child(1) {
+  font-size: 26px;
+  box-shadow: inset 0px -13px 15px -10px green,
+  inset 0px 13px 15px -10px green;
+}
+
+.user li.self-ranking-card:nth-child(2) {
+  font-size: 24px;
+  box-shadow: inset 0px -10px 15px -10px orange,
+  inset 0px 10px 15px -10px orange;
+}
+
+.user li.self-ranking-card:nth-child(3) {
+  font-size: 22px;
+  box-shadow: inset 0px -7px 15px -10px blue,
+  inset 0px 7px 15px -10px blue;
+}
+
+.user div.to-complete {
+  width: 100%;
+  padding: 10px;
+  background-color: #64748b;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid #cbd5e1;
+  color: black;
+}
+
+.user div.to-complete h2 {
+  margin: unset;
+  text-align: center;
+}
+
+.user div.to-complete ul {
+  display: flex;
+  align-items: center;
+  padding: unset;
+  margin: unset;
+  list-style: none;
+  height: 100%;
+  overflow: auto;
+  gap: 10px;
+}
+
+.user div.to-complete img {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+
+@media (width: 600px) {
+  .user div.last-times {
+    width: 100%;
+  }
+
+  .user div.self-ranking {
+    width: 100%;
+  }
+}

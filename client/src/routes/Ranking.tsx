@@ -1,14 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useRanking from "../utils/useRanking";
+import GameRanking from "../components/ranking/GameRanking";
 
 export default function Ranking() {
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const gameRanking = useRanking(Number(id));
 
   if (gameRanking === undefined) return (
     <div className="ranking not-found">
-      <h1>User not found</h1>
+      <h1>Game not found: {id}</h1>
     </div>
   )
 
@@ -23,8 +25,13 @@ export default function Ranking() {
               <th>Tempo</th>
             </tr>
           </thead>
-          <tbody></tbody>
+          <tbody>
+            {gameRanking.map((r, i) => <GameRanking key={r.name} index={i} ranking={r} />)}
+          </tbody>
         </table>
+      </div>
+      <div>
+        <button onClick={() => navigate("/jogar/" + id)}>Jogar</button>
       </div>
     </div>
   )

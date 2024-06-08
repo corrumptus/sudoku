@@ -1,5 +1,5 @@
-type UserInfos = {
-  userName: string,
+export type UserInfos = {
+  name: string,
   totalFinished: number,
   lastTimes: { gameID: number, time: number }[],
   timeRankings: number[],

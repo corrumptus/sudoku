@@ -16,7 +16,7 @@ export default function Ranking() {
 
   return (
     <div className="ranking">
-      <div>
+      <div className="table-container">
         <table>
           <thead>
             <tr>
@@ -30,7 +30,7 @@ export default function Ranking() {
           </tbody>
         </table>
       </div>
-      <div>
+      <div className="button-container">
         <button onClick={() => navigate("/jogar/" + id)}>Jogar</button>
       </div>
     </div>

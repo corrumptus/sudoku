@@ -1,5 +1,5 @@
 export type Ranking = {
-  userName: string,
+  name: string,
   time: number
 }
 

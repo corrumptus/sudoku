@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import useRanking from "../utils/useRanking";
 import GameRanking from "../components/ranking/GameRanking";
+import "../styles/ranking.css";
 
 export default function Ranking() {
   const navigate = useNavigate();

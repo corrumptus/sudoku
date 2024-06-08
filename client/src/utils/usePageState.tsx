@@ -20,7 +20,7 @@ export default function usePageType(): PageType {
 
   const { name } = useParams();
 
-  if (name !== userName)
+  if (name !== userName || !location.pathname.includes("/edit"))
     return PageType.USER_PAGE;
 
   return PageType.SELF_USER_PAGE;

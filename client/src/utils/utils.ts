@@ -12,38 +12,17 @@ export function numberToTime(seconds: number): string {
 
     times.push(seconds%AMOUNT_SECONDS_MIN);
 
-    seconds -= seconds%AMOUNT_SECONDS_MIN;
+    const minutes = (seconds - seconds%AMOUNT_SECONDS_MIN) / SECONDS_TO_MINS;
 
-    if (seconds === 0)
-        return "00:" + times[0];
+    if (minutes === 0)
+        return "00:" + (times[0] < 10 ? "0" + times[0] : times[0]);
 
-    seconds /= SECONDS_TO_MINS;
+    times.push(minutes%AMOUNT_MINS_HOUR);
 
-    times.push(seconds%AMOUNT_MINS_HOUR);
+    const hours = (minutes - minutes%AMOUNT_MINS_HOUR) / MINS_TO_HOURS;
 
-    seconds -= seconds%AMOUNT_MINS_HOUR;
+    if (hours !== 0)
+        times.push(hours);
 
-    seconds /= MINS_TO_HOURS;
-
-    if (seconds !== 0)
-        times.push(seconds);
-
-    return times.reverse().join(":");
+    return times.reverse().map(t => t < 10 ? "0" + t : t.toString()).join(":");
 }
-
-/*
- - 1: 1s
-
- - 60: 1min
-
- - 61: 1min 1s
-
- - 3600: 1h
-
- - 3601: 1h 1s
-
- - 3661: 1h 1min 1s
-
-
-
-*/

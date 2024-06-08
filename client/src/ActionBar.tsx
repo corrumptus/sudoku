@@ -1,9 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import usePageType, { PageType } from "./utils/usePageState";
 import "./styles/navbar.css";
 
 export default function ActionBar() {
+  const navigate = useNavigate();
   const pageType = usePageType();
+
+  async function handleDelete() {
+    const response = await fetch("http://localhost:5000/user", {
+      method: "DELETE",
+      headers: {
+        "authorization": localStorage.getItem("sudoku-token") || ""
+      }
+    });
+
+    if (!response.ok) {
+      const { error } = await response.json();
+
+      alert(error);
+    } else {
+      localStorage.setItem("sudoku-token", "");
+      localStorage.setItem("sudoku-name", "");
+      navigate("/");
+    }
+  }
 
   if (pageType === PageType.NON_USER_PAGE) return (
     <nav className="main-navbar">
@@ -15,7 +35,7 @@ export default function ActionBar() {
       </div>
       <div style={{marginLeft: "auto"}}>
         <Link to={"/user/" + localStorage.getItem("sudoku-name") as string}>
-          <img src="" alt="" />
+          <img src="../public/user.png" alt="user icon" />
         </Link>
       </div>
     </nav>
@@ -31,7 +51,7 @@ export default function ActionBar() {
       </div>
       <div style={{marginLeft: "auto"}}>
         <Link to={"/user/" + localStorage.getItem("sudoku-name") as string}>
-          <img src="" alt="" />
+          <img src="../public/user.png" alt="user icon" />
         </Link>
       </div>
     </nav>
@@ -46,8 +66,8 @@ export default function ActionBar() {
         <Link to="/api">API para devs</Link>
       </div>
       <div style={{marginLeft: "auto"}}>
-        <Link to="">Editar</Link>
-        <Link to="">Deletar</Link>
+        <Link to="/user/edit">Editar</Link>
+        <button onClick={handleDelete}>Deletar</button>
       </div>
     </nav>
   )

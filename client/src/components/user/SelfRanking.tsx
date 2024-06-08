@@ -8,7 +8,7 @@ export default function SelfRanking({
   time: number
 }) {
   return (
-    <li>
+    <li className="self-ranking-card">
       {index+1}º: {numberToTime(time)}
     </li>
   );   

@@ -18,3 +18,12 @@
 .main-navbar a:hover {
   color: black;
 }
+
+.main-navbar a:has(img) {
+  height: 40px;
+}
+
+.main-navbar img {
+  width: 40px;
+  height: 40px;
+}

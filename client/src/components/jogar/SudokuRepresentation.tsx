@@ -18,24 +18,31 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   useEffect(() => {
     (async () => {
       setState(true);
-      const response = await fetch("http://localhost:5000/jogos/" + id);
+      try {
+        const response = await fetch("http://localhost:5000/jogos/" + id);
 
-      if (!response.ok) {
-        const { error } = await response.json();
+        if (!response.ok) {
+          const { error } = await response.json();
 
-        alert(error);
+          alert(error);
+          setState(false);
 
-        return;
+          return;
+        }
+
+        const { game: { lockedCells } }: { game: { lockedCells: LockedCell[] } }
+          = await response.json();
+
+        posicoesTrancadas.current = lockedCells.map(
+          ({ x, y, valor }) => ({posicao: x + y*9, valor: valor})
+        );
+
+        setTabela(generateSudoku());
+        setState(false);
+      } catch (e) {
+        alert("Cannot access the server");
+        setState(false);
       }
-
-      const { game: { lockedCells } }: { game: { lockedCells: LockedCell[] } }
-        = await response.json();
-
-      posicoesTrancadas.current = lockedCells.map(
-        ({ x, y, valor }) => ({posicao: x + y*9, valor: valor})
-      );
-
-      setTabela(generateSudoku());
     })()
   }, []);
 

@@ -13,6 +13,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   const [ state, setState ] = useState(false);
   const [ tabela, setTabela ] = useState<(sudokuValue | undefined)[]>();
   const posicoesTrancadas = useRef<{ posicao: number, valor: sudokuValue }[]>([]);
+  const [ date ] = useState(new Date());
 
   useEffect(() => {
     (async () => {
@@ -59,6 +60,37 @@ export default function SudokuRepresentation({ id }: { id: number }) {
     setTabela(novaTabela);
   }
 
+  async function handleSubmit() {
+    const finishedTime = new Date().getTime();
+
+    if (!verificaJogo(tabela as (sudokuValue | undefined)[])) {
+      return;
+    }
+
+    const initialTime = date.getTime();
+
+    const response = await fetch("http://localhost:5000/jogos/" + id, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        "authorization": localStorage.getItem("sudoku-token") || ""
+      },
+      body: JSON.stringify({
+        time: finishedTime - initialTime
+      })
+    });
+
+    if (!response.ok) {
+      const { error } = await response.json();
+
+      alert(error);
+
+      return;
+    }
+
+    alert("enviado com sucesso");
+  }
+
   if (state) return (
     <div className="sudoku_rapper loading">
       <h1>Carregando</h1>
@@ -85,7 +117,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
         )}
       </div>
       <div className="buttons">
-        <button onClick={() => verificaJogo(tabela)}>Checar</button>
+        <button onClick={handleSubmit}>Enviar</button>
         <button onClick={() => navigate("/ranking/" + id)}>Ranking</button>
       </div>
     </div>

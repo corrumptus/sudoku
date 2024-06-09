@@ -13,7 +13,7 @@ export default function SudokuRoutes() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/jogar" element={<Jogar />} />
+      <Route path="/jogar/:id" element={<Jogar />} />
       <Route path="/quemsomos" element={<Quemsomos />} />
       <Route path="/api" element={<DevAPI />} />
       <Route path="/login" element={<Login />} />

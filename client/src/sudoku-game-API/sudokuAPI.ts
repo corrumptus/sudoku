@@ -67,28 +67,29 @@ function validaArray(arr: (sudokuValue | undefined)[]): arr is sudokuValue[] {
     return !arr.includes(undefined);
 }
 
-export function verificaJogo(arr: (sudokuValue | undefined)[]) {
+export function verificaJogo(arr: (sudokuValue | undefined)[]): boolean {
     if (!validaArray(arr)) {
-        console.log("termine o jogo primeiro");
-        return;
+        alert("termine o jogo primeiro");
+        return false;
     }
 
     if (numeroRepetidoLinha(arr)) {
-        console.log("tem número repetido em uma linha");
-        return;
+        alert("tem número repetido em uma linha");
+        return false;
     }
 
     if (numeroRepetidoColuna(arr)) {
-        console.log("tem número repetido em uma coluna");
-        return;
+        alert("tem número repetido em uma coluna");
+        return false;
     }
 
     if (numeroRepetidoQuadrante(arr)) {
-        console.log("tem número repetido em um quadrante");
-        return;
+        alert("tem número repetido em um quadrante");
+        return false;
     }
 
-    console.log("parabens");
+    alert("parabens");
+    return true;
 }
 
 export function getNovoJogo(): { x: sudokuRange, y: sudokuRange, valor: sudokuValue }[] {

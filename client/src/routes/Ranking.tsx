@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { GameRankings } from "../sudoku-game-API/sudokuAPI";
 import useRanking from "../utils/useRanking";
 import GameRanking from "../components/ranking/GameRanking";
 import "../styles/ranking.css";
@@ -7,11 +9,28 @@ export default function Ranking() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const gameRanking = useRanking(Number(id));
+  const [ gameRanking, setGameRanking ] = useState<GameRankings["ranking"] | undefined>(undefined);
+  const [ state, setState ] = useState(true);
+
+  useEffect(() => {
+    useRanking(Number(id))
+      .then(ranking => {
+        setState(false);
+
+        if (ranking !== undefined)
+          setGameRanking(ranking);
+      });
+  }, []);
+
+  if (state) return (
+    <div className="ranking loading">
+      <h1>Carregando</h1>
+    </div>
+  )
 
   if (gameRanking === undefined) return (
     <div className="ranking not-found">
-      <h1>Game not found: {id}</h1>
+      <h1>Não foi possível carregar o jogo {id}</h1>
     </div>
   )
 

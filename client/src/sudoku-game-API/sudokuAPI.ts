@@ -1,28 +1,26 @@
-import { sudokuRange, sudokuValue } from "../components/jogar/SudokuRepresentation";
-
 function repete(arr: sudokuValue[]): boolean {
     return new Set(arr).size !== 9;
 }
 
 function getLinha(arr: sudokuValue[], index: number): sudokuValue[] {
     return arr.filter((_, i) => {
-        return i >= index*9 && i < (index+1)*9;
+        return i >= index * 9 && i < (index + 1) * 9;
     });
 }
 
 function getColuna(arr: sudokuValue[], index: number): sudokuValue[] {
     return arr.filter((_, i) => {
-        return i%9 === index;
+        return i % 9 === index;
     });
 }
 
 function getQuadrante(arr: sudokuValue[], index: number): sudokuValue[] {
     return arr.filter((_, i) => {
-        const numeroDelimitadoPeloComecoDoQuadrante = (i: number, index: number, linha: 0|1|2): boolean =>
-            i >= ((index%3)*3)+(9*linha)+(27*((index - (index%3))/3));
+        const numeroDelimitadoPeloComecoDoQuadrante = (i: number, index: number, linha: 0 | 1 | 2): boolean =>
+            i >= ((index % 3) * 3) + (9 * linha) + (27 * ((index - (index % 3)) / 3));
 
-        const numeroDelimitadoPeloFimDoQuadrante = (i: number, index: number, linha: 0|1|2): boolean =>
-            i < (((index%3)+1)*3)+(9*linha)+(27*((index - (index%3))/3));
+        const numeroDelimitadoPeloFimDoQuadrante = (i: number, index: number, linha: 0 | 1 | 2): boolean =>
+            i < (((index % 3) + 1) * 3) + (9 * linha) + (27 * ((index - (index % 3)) / 3));
 
 
         const numeroEstaNaPrimeiraLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 0) &&
@@ -92,37 +90,32 @@ export function verificaJogo(arr: (sudokuValue | undefined)[]): boolean {
     return true;
 }
 
-export function getNovoJogo(): { x: sudokuRange, y: sudokuRange, valor: sudokuValue }[] {
-    return [
-        { x: 1, y: 0, valor: 6},
-        { x: 3, y: 0, valor: 1},
-        { x: 5, y: 0, valor: 4},
-        { x: 7, y: 0, valor: 5},
-        { x: 2, y: 1, valor: 8},
-        { x: 3, y: 1, valor: 3},
-        { x: 5, y: 1, valor: 5},
-        { x: 6, y: 1, valor: 6},
-        { x: 0, y: 2, valor: 2},
-        { x: 8, y: 2, valor: 1},
-        { x: 0, y: 3, valor: 8},
-        { x: 3, y: 3, valor: 4},
-        { x: 5, y: 3, valor: 7},
-        { x: 8, y: 3, valor: 6},
-        { x: 2, y: 4, valor: 6},
-        { x: 6, y: 4, valor: 3},
-        { x: 0, y: 5, valor: 7},
-        { x: 3, y: 5, valor: 9},
-        { x: 5, y: 5, valor: 1},
-        { x: 8, y: 5, valor: 4},
-        { x: 0, y: 6, valor: 5},
-        { x: 8, y: 6, valor: 2},
-        { x: 2, y: 7, valor: 7},
-        { x: 3, y: 7, valor: 2},
-        { x: 5, y: 7, valor: 6},
-        { x: 6, y: 7, valor: 9},
-        { x: 1, y: 8, valor: 4},
-        { x: 3, y: 8, valor: 5},
-        { x: 5, y: 8, valor: 8},
-        { x: 7, y: 8, valor: 7}
-    ];
+export type sudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+export type sudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+export type LockedCell = { x: sudokuRange, y: sudokuRange, valor: sudokuValue };
+export type SudokuTable = ({ valor: sudokuValue | undefined, isLocked: boolean })[];
+
+export async function getGame(id: number): Promise<SudokuTable | null | undefined> {
+    try {
+        const response = await fetch("http://localhost:5000/jogos/" + id);
+
+        if (!response.ok)
+            return null;
+
+        const { game: { lockedCells } }: { game: { lockedCells: LockedCell[] } }
+            = await response.json();
+
+        return new Array(81).fill(undefined).map((_, i) => {
+            const lockedCell = lockedCells.find(lc => lc.x*lc.y === i);
+
+            const isFinded = lockedCell !== undefined;
+
+            return {
+                valor: isFinded ? lockedCell.valor : undefined,
+                isLocked: isFinded ? true : false
+            };
+        });
+    } catch (e) {
+        return undefined;
+    }
 }

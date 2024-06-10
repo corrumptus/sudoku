@@ -1,68 +1,40 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SudokuCell from "./SudokuCell";
-import { verificaJogo } from "../../sudoku-game-API/sudokuAPI";
-
-export type sudokuRange = 0|1|2|3|4|5|6|7|8;
-export type sudokuValue = 1|2|3|4|5|6|7|8|9;
-export type LockedCell = { x: sudokuRange, y: sudokuRange, valor: sudokuValue }
+import { SudokuTable, getGame, submitGame, sudokuValue, verificaJogo } from "../../sudoku-game-API/sudokuAPI";
 
 export default function SudokuRepresentation({ id }: { id: number }) {
   const navigate = useNavigate();
 
   const [ state, setState ] = useState(false);
-  const [ tabela, setTabela ] = useState<(sudokuValue | undefined)[]>();
-  const posicoesTrancadas = useRef<{ posicao: number, valor: sudokuValue }[]>([]);
+  const [ tabela, setTabela ] = useState<SudokuTable>();
   const [ date ] = useState(new Date());
 
   useEffect(() => {
-    (async () => {
-      setState(true);
-      try {
-        const response = await fetch("http://localhost:5000/jogos/" + id);
+    setState(true);
 
-        if (!response.ok) {
-          const { error } = await response.json();
+    getGame(id)
+      .then(game => {
+        setState(false);
 
-          alert(error);
-          setState(false);
-
+        if (game === null) {
+          alert(`A tabela ${id} não existe`);
           return;
         }
 
-        const { game: { lockedCells } }: { game: { lockedCells: LockedCell[] } }
-          = await response.json();
+        if (game === undefined) {
+          alert("Não foi possível se conectar ao servidor");
+          return;
+        }
 
-        posicoesTrancadas.current = lockedCells.map(
-          ({ x, y, valor }) => ({posicao: x + y*9, valor: valor})
-        );
-
-        setTabela(generateSudoku());
-        setState(false);
-      } catch (e) {
-        alert("Cannot access the server");
-        setState(false);
-      }
-    })()
+        setTabela(game);
+      });
   }, []);
 
-  function generateSudoku(): (sudokuValue | undefined)[] {
-    let tabela: (sudokuValue | undefined)[] = Array.apply(null, Array(81)).map(() => undefined);
-
-    for (let { posicao, valor } of posicoesTrancadas.current)
-      tabela[posicao] = valor;
-
-    return tabela;
-  }
-
-  function posicaoTrancada(posicao: number): boolean {
-    return posicoesTrancadas.current.find(p => p.posicao === posicao) !== undefined;
-  }
-
   function atualizaValor(posicao: number, newValue: sudokuValue | undefined) {
-    let novaTabela = [...tabela as (sudokuValue | undefined)[]];
+    let novaTabela = (tabela as SudokuTable).map(cell => ({...cell}));
 
-    novaTabela[posicao] = newValue;
+    novaTabela[posicao].valor = newValue;
 
     setTabela(novaTabela);
   }
@@ -70,32 +42,26 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   async function handleSubmit() {
     const finishedTime = new Date().getTime();
 
-    if (!verificaJogo(tabela as (sudokuValue | undefined)[])) {
+    if (!verificaJogo(tabela as SudokuTable)) {
       return;
     }
 
     const initialTime = date.getTime();
 
-    const response = await fetch("http://localhost:5000/jogos/" + id, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        "authorization": localStorage.getItem("sudoku-token") || ""
-      },
-      body: JSON.stringify({
-        time: finishedTime - initialTime
-      })
-    });
+    submitGame(id, finishedTime - initialTime)
+      .then(id => {
+        if (id === undefined) {
+          alert("Não foi possível se conectar ao servidor");
+          return;
+        }
 
-    if (!response.ok) {
-      const { error } = await response.json();
+        if (id === null) {
+          alert("Jogo não existe");
+          return;
+        }
 
-      alert(error);
-
-      return;
-    }
-
-    alert("enviado com sucesso");
+        alert("Jogo enviado com sucesso");
+      });
   }
 
   if (state) return (
@@ -113,13 +79,13 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   return (
     <div className="sudoku_rapper">
       <div className="sudoku">
-        {tabela.map((valor, i) =>
+        {tabela.map((cell, i) =>
           <SudokuCell
             key={i}
-            valor={valor}
+            valor={cell.valor}
             posicao={i}
             atualizaValor={atualizaValor}
-            trancada={posicaoTrancada(i)}
+            trancada={cell.isLocked}
           />
         )}
       </div>

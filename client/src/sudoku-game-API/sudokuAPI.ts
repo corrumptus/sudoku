@@ -65,7 +65,9 @@ function validaArray(arr: (sudokuValue | undefined)[]): arr is sudokuValue[] {
     return !arr.includes(undefined);
 }
 
-export function verificaJogo(arr: (sudokuValue | undefined)[]): boolean {
+export function verificaJogo(table: SudokuTable): boolean {
+    const arr = table.map(c => c.valor);
+
     if (!validaArray(arr)) {
         alert("termine o jogo primeiro");
         return false;

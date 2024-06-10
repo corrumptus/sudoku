@@ -34,10 +34,14 @@ export default class GameRepository {
     }
 }
 
-type LockedCell = {
-    x:0|1|2|3|4|5|6|7|8,
-    y:0|1|2|3|4|5|6|7|8,
-    valor:1|2|3|4|5|6|7|8|9
+export type SudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+
+export type SudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
+
+export type LockedCell = {
+    x: SudokuRange,
+    y: SudokuRange,
+    valor: SudokuValue
 }
 
 export type Game = {
@@ -46,9 +50,9 @@ export type Game = {
 }
 
 export type Ranking = {
-    game: Game;
+    gameID: number;
     ranking: {
         player: string;
         time: number;
-    }
+    }[];
 }

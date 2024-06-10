@@ -1,35 +1,35 @@
 export default class GameRepository {
     static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
 
-    static getAll(page: number): Game[] {
+    static async getAll(page: number): Promise<Game[]> {
         return [];
     }
 
-    static get(id: number): Game | undefined {
+    static async get(id: number): Promise<Game | undefined> {
         return undefined;
     }
 
-    static newGame(game: Omit<Game, "id">): Game | undefined {
+    static async newGame(game: Omit<Game, "id">): Promise<Game | undefined> {
         return undefined;
     }
 
-    static newTime(id: number, name: string, time: number): Game | undefined {
+    static async newTime(id: number, name: string, time: number): Promise<Game | undefined> {
         return undefined;
     }
 
-    static getRanking(id: number): Ranking | undefined {
+    static async getRanking(id: number): Promise<Ranking | undefined> {
         return undefined;
     }
 
-    static hasNonCompletedGames(name: string): boolean {
+    static async hasNonCompletedGames(name: string): Promise<boolean> {
         return false;
     }
 
-    static getNonCompletedGames(name: string): Game[] {
+    static async getNonCompletedGames(name: string): Promise<Game[]> {
         return [];
     }
 
-    static get amount(): bigint {
+    static async amount(): Promise<bigint> {
         return -1n;
     }
 }

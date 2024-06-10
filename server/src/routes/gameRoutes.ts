@@ -6,7 +6,7 @@ import UserRepository from "../repository/UserRepository";
 
 const gameRoutes = express();
 
-gameRoutes.get("/jogos", (req, res) => {
+gameRoutes.get("/jogos", async (req, res) => {
     const { page } = req.query;
 
     const pageNumber = Number(page);
@@ -16,16 +16,22 @@ gameRoutes.get("/jogos", (req, res) => {
         return;
     }
 
-    const games = GameService.getAll(pageNumber);
+    const games = await GameService.getAll(pageNumber);
 
     res.json(GameResponse.ofGames(games));
 });
 
-gameRoutes.get("/jogos/new", (req, res) => {
+gameRoutes.get("/jogos/new", async (req, res) => {
     const token = req.headers.authorization;
 
     if (token === undefined) {
-        res.json(GameResponse.ofGame(GameService.getRandom()));
+        const random = await GameService.getRandom();
+
+        if (random === undefined)
+            res.json(GameResponse.ofError("Cannot get a random game"));
+        else
+            res.json(GameResponse.ofGame(random));
+
         return;
     }
 
@@ -36,7 +42,7 @@ gameRoutes.get("/jogos/new", (req, res) => {
         return;
     }
 
-    const newGame = GameService.getNew(payload.name);
+    const newGame = await GameService.getNew(payload.name);
 
     if (newGame === undefined) {
         res.json(GameResponse.ofError("Player exceed the max amount of game possibilities"));
@@ -46,7 +52,7 @@ gameRoutes.get("/jogos/new", (req, res) => {
     res.json(GameResponse.ofGame(newGame));
 });
 
-gameRoutes.get("/jogos/:id", (req, res) => {
+gameRoutes.get("/jogos/:id", async (req, res) => {
     const { id } = req.params;
 
     const idNumber = Number(id);
@@ -56,7 +62,7 @@ gameRoutes.get("/jogos/:id", (req, res) => {
         return;
     }
 
-    const game = GameService.get(idNumber);
+    const game = await GameService.get(idNumber);
 
     if (game === undefined) {
         res.status(404).json(GameResponse.ofError(`Game not found with the ID ${id}`));
@@ -66,7 +72,7 @@ gameRoutes.get("/jogos/:id", (req, res) => {
     res.json(GameResponse.ofGame(game));
 });
 
-gameRoutes.get("/jogos/:id/ranking", (req, res) => {
+gameRoutes.get("/jogos/:id/ranking", async (req, res) => {
     const { id } = req.params;
 
     const idNumber = Number(id);
@@ -76,7 +82,7 @@ gameRoutes.get("/jogos/:id/ranking", (req, res) => {
         return;
     }
 
-    const ranking = GameService.getRanking(idNumber);
+    const ranking = await GameService.getRanking(idNumber);
 
     if (ranking === undefined) {
         res.status(404).json(GameResponse.ofError("Game not found"));
@@ -86,7 +92,7 @@ gameRoutes.get("/jogos/:id/ranking", (req, res) => {
     res.json(GameResponse.ofRanking(ranking));
 });
 
-gameRoutes.post("/jogos/:id", (req, res) => {
+gameRoutes.post("/jogos/:id", async (req, res) => {
     const { id } = req.params;
 
     const idNumber = Number(id);
@@ -124,7 +130,7 @@ gameRoutes.post("/jogos/:id", (req, res) => {
         return;
     }
 
-    const game = GameService.newTime(idNumber, user.name, time);
+    const game = await GameService.newTime(idNumber, user.name, time);
 
     if (game === undefined) {
         res.status(500).json(GameResponse.ofError("Somthing went wrong on saving the new time"));

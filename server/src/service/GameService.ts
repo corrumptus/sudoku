@@ -2,42 +2,46 @@ import GameRepository, { Game, Ranking } from "../repository/GameRepository";
 import GameGenarator from "../utils/GameGenerator";
 
 export default class GameService {
-    static getAll(page: number): Game[] {
-        return GameRepository.getAll(page);
+    static async getAll(page: number): Promise<Game[]> {
+        return await GameRepository.getAll(page);
     }
 
-    static get(id: number): Game | undefined {
-        return GameRepository.get(id);
+    static async get(id: number): Promise<Game | undefined> {
+        return await GameRepository.get(id);
     }
 
-    static getRandom(): Game {
-        const max = parseInt(GameRepository.amount.toString());
+    static async getRandom(): Promise<Game | undefined> {
+        if (await GameRepository.amount() === 0n) {
+            const newGame = GameGenarator.generate();
+
+            return await GameRepository.newGame(newGame);
+        }
+
+        const max = parseInt((await GameRepository.amount()).toString());
 
         const random = Math.floor(Math.random() * max);
 
-        return GameRepository.get(random) as Game;
+        return await GameRepository.get(random) as Game;
     }
 
-    static getNew(name: string): Game | undefined {
-        if (GameRepository.hasNonCompletedGames(name))
-            return GameRepository.getNonCompletedGames(name)[0];
+    static async getNew(name: string): Promise<Game | undefined> {
+        if (await GameRepository.hasNonCompletedGames(name))
+            return (await GameRepository.getNonCompletedGames(name))[0];
 
-        if (GameRepository.amount === GameRepository.MAX_AMOUNT_OF_GAMES) {
+        if (await GameRepository.amount() === GameRepository.MAX_AMOUNT_OF_GAMES) {
             return undefined;
         }
 
         const newGame = GameGenarator.generate();
 
-        const savedGame = GameRepository.newGame(newGame);
-
-        return savedGame;
+        return await GameRepository.newGame(newGame);
     }
 
-    static getRanking(id: number): Ranking | undefined {
-        return GameRepository.getRanking(id);
+    static async getRanking(id: number): Promise<Ranking | undefined> {
+        return await GameRepository.getRanking(id);
     }
 
-    static newTime(id: number, name: string, time: number): Game | undefined {
-        return GameRepository.newTime(id, name, time);
+    static async newTime(id: number, name: string, time: number): Promise<Game | undefined> {
+        return await GameRepository.newTime(id, name, time);
     }
 }

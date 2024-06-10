@@ -148,3 +148,22 @@ export async function submitGame(id: number, time: number): Promise<number | nul
         return undefined;
     }
 }
+
+export async function getNewGame(): Promise<number | null | undefined> {
+    try {
+        const response = await fetch("http://localhost:5000/jogos/new", {
+            headers: {
+                "authorization": localStorage.getItem("sudoku-token") || ""
+            }
+        });
+
+        if (!response.ok)
+            return null;
+
+        const { id } = await response.json();
+
+        return id;
+    } catch (e) {
+        return undefined;
+    }
+}

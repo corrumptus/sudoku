@@ -169,10 +169,10 @@ export async function getNewGame(): Promise<number | null | undefined> {
 }
 
 export type GameRankings = {
-    gameID: number;
+    gameID: number,
     ranking: {
-        name: string;
-        time: number;
+        name: string,
+        time: number
     }[]
 }
 
@@ -186,6 +186,29 @@ export async function getGameRanking(id: number): Promise<GameRankings | null | 
         const ranking = await response.json();
 
         return ranking;
+    } catch(e) {
+        return undefined;
+    }
+}
+
+export type UserInfos = {
+    name: string,
+    totalFinished: number,
+    lastTimes: { id: number, time: number }[],
+    timeRankings: number[],
+    nonFinishedGames: number[]
+}
+
+export async function getUserInfos(name: string): Promise<UserInfos | null | undefined> {
+    try {
+        const response = await fetch("http://localhost:5000/user/" + name);
+
+        if (!response.ok)
+            return null;
+
+        const userInfos = await response.json();
+
+        return userInfos;
     } catch(e) {
         return undefined;
     }

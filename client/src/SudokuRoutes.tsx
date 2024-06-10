@@ -3,6 +3,7 @@ import DevAPI from "./routes/DevAPI";
 import EditUser from "./routes/EditUser";
 import Home from "./routes/Home";
 import Jogar from "./routes/Jogar";
+import JogarNew from "./routes/JogarNew";
 import Login from "./routes/Login";
 import Quemsomos from "./routes/Quemsomos";
 import Ranking from "./routes/Ranking";
@@ -14,6 +15,7 @@ export default function SudokuRoutes() {
     <Routes>
       <Route path="/" element={<Home />} />
       <Route path="/jogar/:id" element={<Jogar />} />
+      <Route path="/jogar" element={<JogarNew />} />
       <Route path="/quemsomos" element={<Quemsomos />} />
       <Route path="/api" element={<DevAPI />} />
       <Route path="/login" element={<Login />} />

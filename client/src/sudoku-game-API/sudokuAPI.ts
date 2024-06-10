@@ -167,3 +167,26 @@ export async function getNewGame(): Promise<number | null | undefined> {
         return undefined;
     }
 }
+
+export type GameRankings = {
+    gameID: number;
+    ranking: {
+        name: string;
+        time: number;
+    }[]
+}
+
+export async function getGameRanking(id: number): Promise<GameRankings | null | undefined> {
+    try {
+        const response = await fetch("http://localhost:5000/game/" + id + "/ranking");
+
+        if (!response.ok)
+            return null;
+
+        const ranking = await response.json();
+
+        return ranking;
+    } catch(e) {
+        return undefined;
+    }
+}

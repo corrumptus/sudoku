@@ -1,8 +1,10 @@
-export type Ranking = {
-  name: string,
-  time: number
-}
+import { GameRankings, getGameRanking } from "../sudoku-game-API/sudokuAPI";
 
-export default function useRanking(gameId: number): Ranking[] | undefined {
-  return undefined;
+export default async function useRanking(gameId: number): Promise<GameRankings["ranking"] | undefined> {
+  const rankings = await getGameRanking(gameId);
+
+  if (rankings === null || rankings === undefined)
+    return undefined;
+
+  return rankings.ranking;
 }

@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { UserInfos } from "../sudoku-game-API/sudokuAPI";
 import useUserInfos from "../utils/useUserInfos";
 import LastTimeCard from "../components/user/LastTimeCard";
 import NonCompletedGameCard from "../components/user/NonCompletedGameCard";
@@ -7,8 +9,25 @@ import "../styles/user-name.css";
 
 export default function User() {
   const { name } = useParams();
+  
+  const [ userInfos, setUserInfos ] = useState<UserInfos | undefined>(undefined);
+  const [ state, setState ] = useState(true);
 
-  const userInfos = useUserInfos(name as string);
+  useEffect(() => {
+    useUserInfos(name as string)
+      .then(userInfos => {
+        setState(false);
+
+        if (userInfos !== undefined)
+          setUserInfos(userInfos);
+      });
+  }, []);
+
+  if (state) return (
+    <div className="user loading">
+      <h1>Carregando</h1>
+    </div>
+  )
 
   if (userInfos === undefined) return (
     <div className="user not-found">
@@ -26,7 +45,7 @@ export default function User() {
         <div className="last-times">
           <h2>Últimos jogos</h2>
           <ul>
-            {userInfos.lastTimes.map(lt => <LastTimeCard key={lt.gameID} game={lt.gameID} time={lt.time} />)}
+            {userInfos.lastTimes.map(lt => <LastTimeCard key={lt.id} game={lt.id} time={lt.time} />)}
           </ul>
         </div>
         <div className="self-ranking">

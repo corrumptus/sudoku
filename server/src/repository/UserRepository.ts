@@ -2,7 +2,7 @@ import { MD5 } from "crypto-js";
 import User from "../model/User";
 
 export default class UserRepository {
-    static async get(name: string): UserDTO | undefined {
+    static async get(name: string): Promise<UserDTO | undefined> {
         const user = await User.findOne({
             where: {
                 name: name
@@ -15,7 +15,7 @@ export default class UserRepository {
         return user as unknown as UserDTO;
     }
 
-    static async create(name: string, password: string): UserDTO | undefined {
+    static async create(name: string, password: string): Promise<UserDTO | undefined> {
         const newUser = User.build({
             name: name,
             password: MD5(password)
@@ -33,8 +33,29 @@ export default class UserRepository {
         }
     }
 
-    static update(name?: string, password?: string): UserDTO | undefined {
-        return undefined;
+    static async update(userName: string, name?: string, password?: string): Promise<UserDTO | undefined> {
+        const user = await User.findOne({
+            where: {
+                name: userName
+            }
+        });
+
+        if (user === null)
+            return undefined;
+
+        const newUserInfos: Partial<UserDTO> = {};
+
+        if (name !== undefined)
+            newUserInfos["name"] = name;
+
+        if (password !== undefined)
+            newUserInfos["password"] = password;
+
+        user.set(newUserInfos);
+
+        user.save();
+
+        return user as unknown as UserDTO;
     }
 
     static delete(name: string): boolean {

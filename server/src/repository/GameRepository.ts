@@ -97,8 +97,23 @@ export default class GameRepository {
         return (count[0] as unknown as bigint) < GameRepository.MAX_AMOUNT_OF_GAMES;
     }
 
-    static async getNonCompletedGames(name: string): Promise<GameDTO[]> {
-        return [];
+    static async getNonCompletedGames(name: string, amount: number): Promise<GameDTO[]> {
+        const nonCompletedGames = await connection.query(
+            "SELECT `Game`.* " +
+            "FROM `Game`, `Ranking` " +
+            "WHERE `Game`.id <> `Ranking`.game_id AND `Ranking`.user_name = :name",
+            {
+                replacements: {
+                    name: name
+                },
+                type: Sequelize.QueryTypes.SELECT
+            }
+        );
+
+        return nonCompletedGames.map(game => ({
+            id: (game as any).id,
+            lockedCells: JSON.parse((game as any).lockedCells) as LockedCell[]
+        }));
     }
 
     static async amount(): Promise<bigint> {

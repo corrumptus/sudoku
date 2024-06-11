@@ -87,7 +87,7 @@ export default class GameRepository {
     }
 
     static async hasNonCompletedGames(name: string): Promise<boolean> {
-        const count = await connection.query("SELECT COUNT(*) FROM `ranking` WHERE user_name = :name", {
+        const count = await connection.query("SELECT COUNT(*) FROM `Ranking` WHERE user_name = :name", {
             replacements: {
                 name: name
             },
@@ -117,7 +117,11 @@ export default class GameRepository {
     }
 
     static async amount(): Promise<bigint> {
-        return -1n;
+        const count = await connection.query("SELECT COUNT(*) FROM `Game`", {
+            type: Sequelize.QueryTypes.SELECT
+        });
+
+        return count[0] as unknown as bigint;
     }
 }
 

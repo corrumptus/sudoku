@@ -18,7 +18,15 @@ export default class GameRepository {
     }
 
     static async get(id: number): Promise<GameDTO | undefined> {
-        return undefined;
+        const gameDB = await Game.findOne({ where: { id } });
+
+        if (gameDB === null)
+            return undefined;
+
+        return {
+            id: (gameDB as any).id,
+            lockedCells: JSON.parse((gameDB as any).lockedCells)
+        };
     }
 
     static async newGame(game: Omit<GameDTO, "id">): Promise<GameDTO | undefined> {

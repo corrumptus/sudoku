@@ -1,3 +1,4 @@
+import { MD5 } from "crypto-js";
 import User from "../model/User";
 
 export default class UserRepository {
@@ -14,8 +15,22 @@ export default class UserRepository {
         return user as unknown as UserDTO;
     }
 
-    static create(name: string, password: string): UserDTO | undefined {
-        return undefined;
+    static async create(name: string, password: string): UserDTO | undefined {
+        const newUser = User.build({
+            name: name,
+            password: MD5(password)
+        });
+
+        try {
+            const savedUser = await newUser.save();
+
+            if (savedUser === null)
+                return undefined;
+
+            return savedUser as unknown as UserDTO;
+        } catch (e) {
+            return undefined;
+        }
     }
 
     static update(name?: string, password?: string): UserDTO | undefined {

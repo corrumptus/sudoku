@@ -9,7 +9,8 @@ const Game = connection.define("Game", {
     },
     lockedCells: {
         type: Sequelize.STRING(1090),
-        allowNull: false
+        allowNull: false,
+        unique: true
     }
 });
 

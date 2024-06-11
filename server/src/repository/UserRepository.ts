@@ -58,8 +58,19 @@ export default class UserRepository {
         return user as unknown as UserDTO;
     }
 
-    static delete(name: string): boolean {
-        return false;
+    static async delete(name: string): Promise<boolean> {
+        const user = await User.findOne({
+            where: {
+                name: name
+            }
+        });
+
+        if (user === null)
+            return false;
+
+        await user.destroy();
+
+        return true;
     }
 }
 

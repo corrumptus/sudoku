@@ -1,4 +1,5 @@
 import Game from "../model/Game";
+import Ranking from "../model/Ranking";
 
 export default class GameRepository {
     static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
@@ -48,7 +49,22 @@ export default class GameRepository {
     }
 
     static async newTime(id: number, name: string, time: number): Promise<GameDTO | undefined> {
-        return undefined;
+        const newRanking = Ranking.build({
+            game_id: id,
+            user_name: name,
+            time: time
+        });
+
+        try {
+            const savedRanking = await newRanking.save();
+
+            if (savedRanking === null)
+                return undefined;
+
+            return GameRepository.get(id);
+        } catch (e) {
+            return undefined;
+        }
     }
 
     static async getRanking(id: number): Promise<RankingDTO | undefined> {

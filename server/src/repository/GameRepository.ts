@@ -30,7 +30,21 @@ export default class GameRepository {
     }
 
     static async newGame(game: Omit<GameDTO, "id">): Promise<GameDTO | undefined> {
-        return undefined;
+        const newGame = Game.build({ lockedCells: JSON.stringify(game.lockedCells) });
+
+        try {
+            const savedGame = await newGame.save();
+        
+            if (savedGame === null)
+                return undefined;
+
+            return {
+                id: (savedGame as any).id,
+                lockedCells: JSON.parse((savedGame as any).lockedCells)
+            };
+        } catch (e) {
+            return undefined;
+        }
     }
 
     static async newTime(id: number, name: string, time: number): Promise<GameDTO | undefined> {

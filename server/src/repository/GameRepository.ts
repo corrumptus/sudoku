@@ -1,8 +1,20 @@
+import Game from "../model/Game";
+
 export default class GameRepository {
     static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
 
     static async getAll(page: number): Promise<GameDTO[]> {
-        return [];
+        const allGamesDB = await Game.findAll({
+            limit: 20,
+            offset: page * 20
+        });
+
+        return allGamesDB.map(game => (
+            {
+                id: (game as any).id,
+                lockedCells: JSON.parse((game as any).lockedCells) as LockedCell[]
+            }
+        ));
     }
 
     static async get(id: number): Promise<GameDTO | undefined> {

@@ -26,7 +26,7 @@ export default class GameService {
 
     static async getNew(name: string): Promise<GameDTO | undefined> {
         if (await GameRepository.hasNonCompletedGames(name))
-            return (await GameRepository.getNonCompletedGames(name, 1))[0];
+            return (await GameRepository.getNonCompletedGames(name))[0];
 
         if (await GameRepository.amount() === GameRepository.MAX_AMOUNT_OF_GAMES) {
             return undefined;

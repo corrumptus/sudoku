@@ -97,7 +97,7 @@ export default class GameRepository {
         return (count[0] as unknown as bigint) < GameRepository.MAX_AMOUNT_OF_GAMES;
     }
 
-    static async getNonCompletedGames(name: string, amount: number): Promise<GameDTO[]> {
+    static async getNonCompletedGames(name: string): Promise<GameDTO[]> {
         const nonCompletedGames = await connection.query(
             "SELECT `Game`.* " +
             "FROM `Game`, `Ranking` " +
@@ -106,7 +106,7 @@ export default class GameRepository {
                 replacements: {
                     name: name
                 },
-                type: Sequelize.QueryTypes.SELECT
+                type: Sequelize.QueryTypes.SELECT,
             }
         );
 

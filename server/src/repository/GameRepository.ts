@@ -1,5 +1,7 @@
+import connection from "./connecation";
 import Game from "../model/Game";
 import Ranking from "../model/Ranking";
+import Sequelize from "sequelize";
 
 export default class GameRepository {
     static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
@@ -68,7 +70,20 @@ export default class GameRepository {
     }
 
     static async getRanking(id: number): Promise<RankingDTO | undefined> {
-        return undefined;
+        const playersTimes = await Ranking.findAll({
+            attributes: ["user_name", "time"],
+            where: {
+                id: id
+            }
+        });
+
+        return {
+            gameID: id,
+            ranking: playersTimes.map(pt => ({
+                player: (pt as any).user_name,
+                time: (pt as any).time
+            }))
+        }
     }
 
     static async hasNonCompletedGames(name: string): Promise<boolean> {

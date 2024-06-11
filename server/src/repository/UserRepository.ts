@@ -1,7 +1,7 @@
 import User from "../model/User";
 
 export default class UserRepository {
-    static async get(name: string): User | undefined {
+    static async get(name: string): UserDTO | undefined {
         const user = await User.findOne({
             where: {
                 name: name
@@ -11,14 +11,14 @@ export default class UserRepository {
         if (user === null)
             return undefined;
 
-        return user as unknown as User;
+        return user as unknown as UserDTO;
     }
 
-    static create(name: string, password: string): User | undefined {
+    static create(name: string, password: string): UserDTO | undefined {
         return undefined;
     }
 
-    static update(name?: string, password?: string): User | undefined {
+    static update(name?: string, password?: string): UserDTO | undefined {
         return undefined;
     }
 
@@ -27,7 +27,7 @@ export default class UserRepository {
     }
 }
 
-export type User = {
+export type UserDTO = {
     name: string,
     password: string
 }

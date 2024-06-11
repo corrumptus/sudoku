@@ -10,9 +10,12 @@
   "author": "corrumptus",
   "license": "ISC",
   "dependencies": {
+    "@types/crypto-js": "^4.2.2",
     "cors": "^2.8.5",
+    "crypto-js": "^4.2.0",
     "express": "^4.19.2",
-    "lokijs": "^1.5.12"
+    "lokijs": "^1.5.12",
+    "sequelize": "^6.37.3"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

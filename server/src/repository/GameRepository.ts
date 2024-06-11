@@ -87,7 +87,14 @@ export default class GameRepository {
     }
 
     static async hasNonCompletedGames(name: string): Promise<boolean> {
-        return false;
+        const count = await connection.query("SELECT COUNT(*) FROM `ranking` WHERE user_name = :name", {
+            replacements: {
+                name: name
+            },
+            type: Sequelize.QueryTypes.SELECT
+        });
+
+        return (count[0] as unknown as bigint) < GameRepository.MAX_AMOUNT_OF_GAMES;
     }
 
     static async getNonCompletedGames(name: string): Promise<GameDTO[]> {

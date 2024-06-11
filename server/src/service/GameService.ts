@@ -1,16 +1,16 @@
-import GameRepository, { Game, Ranking } from "../repository/GameRepository";
+import GameRepository, { GameDTO, RankingDTO } from "../repository/GameRepository";
 import GameGenarator from "../utils/GameGenerator";
 
 export default class GameService {
-    static async getAll(page: number): Promise<Game[]> {
+    static async getAll(page: number): Promise<GameDTO[]> {
         return await GameRepository.getAll(page);
     }
 
-    static async get(id: number): Promise<Game | undefined> {
+    static async get(id: number): Promise<GameDTO | undefined> {
         return await GameRepository.get(id);
     }
 
-    static async getRandom(): Promise<Game | undefined> {
+    static async getRandom(): Promise<GameDTO | undefined> {
         if (await GameRepository.amount() === 0n) {
             const newGame = GameGenarator.generate();
 
@@ -21,10 +21,10 @@ export default class GameService {
 
         const random = Math.floor(Math.random() * max);
 
-        return await GameRepository.get(random) as Game;
+        return await GameRepository.get(random) as GameDTO;
     }
 
-    static async getNew(name: string): Promise<Game | undefined> {
+    static async getNew(name: string): Promise<GameDTO | undefined> {
         if (await GameRepository.hasNonCompletedGames(name))
             return (await GameRepository.getNonCompletedGames(name))[0];
 
@@ -37,11 +37,11 @@ export default class GameService {
         return await GameRepository.newGame(newGame);
     }
 
-    static async getRanking(id: number): Promise<Ranking | undefined> {
+    static async getRanking(id: number): Promise<RankingDTO | undefined> {
         return await GameRepository.getRanking(id);
     }
 
-    static async newTime(id: number, name: string, time: number): Promise<Game | undefined> {
+    static async newTime(id: number, name: string, time: number): Promise<GameDTO | undefined> {
         return await GameRepository.newTime(id, name, time);
     }
 }

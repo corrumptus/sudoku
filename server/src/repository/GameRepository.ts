@@ -1,23 +1,23 @@
 export default class GameRepository {
     static MAX_AMOUNT_OF_GAMES: bigint = 6_670_903_752_021_072_936_960n
 
-    static async getAll(page: number): Promise<Game[]> {
+    static async getAll(page: number): Promise<GameDTO[]> {
         return [];
     }
 
-    static async get(id: number): Promise<Game | undefined> {
+    static async get(id: number): Promise<GameDTO | undefined> {
         return undefined;
     }
 
-    static async newGame(game: Omit<Game, "id">): Promise<Game | undefined> {
+    static async newGame(game: Omit<GameDTO, "id">): Promise<GameDTO | undefined> {
         return undefined;
     }
 
-    static async newTime(id: number, name: string, time: number): Promise<Game | undefined> {
+    static async newTime(id: number, name: string, time: number): Promise<GameDTO | undefined> {
         return undefined;
     }
 
-    static async getRanking(id: number): Promise<Ranking | undefined> {
+    static async getRanking(id: number): Promise<RankingDTO | undefined> {
         return undefined;
     }
 
@@ -25,7 +25,7 @@ export default class GameRepository {
         return false;
     }
 
-    static async getNonCompletedGames(name: string): Promise<Game[]> {
+    static async getNonCompletedGames(name: string): Promise<GameDTO[]> {
         return [];
     }
 
@@ -44,12 +44,12 @@ export type LockedCell = {
     valor: SudokuValue
 }
 
-export type Game = {
+export type GameDTO = {
     id: number;
     lockedCells: LockedCell[];
 }
 
-export type Ranking = {
+export type RankingDTO = {
     gameID: number;
     ranking: {
         player: string;

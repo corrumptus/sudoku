@@ -4,87 +4,108 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.sudoku_rapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 10px;
 }
 
-.sudoku {
-  display: grid;
-  grid-template-areas: '_ _ _ _ _ _ _ _ _';
-  border: 1px solid black;
+.jogar h1 {
+  margin: unset;
 }
 
-.sudoku_cell {
-  border: 1px solid black;
-  padding: 4px 2px;
-  outline: none;
-  text-align: center;
+.jogar .sudoku_rapper {
+  width: 350px;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 3px 0 white;
 }
 
-.sudoku_select {
-  background-color: rgb(214, 214, 214);
-  color: black;
+.jogar .sudoku {
+  width: 280px;
+  height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transform-style: preserve-3d;
+  z-index: -1;
 }
 
-.sudoku_cell:nth-child(1), .sudoku_cell:nth-child(2), .sudoku_cell:nth-child(3),
-.sudoku_cell:nth-child(10), .sudoku_cell:nth-child(11), .sudoku_cell:nth-child(12), 
-.sudoku_cell:nth-child(19), .sudoku_cell:nth-child(20), .sudoku_cell:nth-child(21) {
+.jogar .sudoku table {
+  position: absolute;
+  border-collapse: collapse;
+}
+
+.jogar .sudoku td {
+  border: 2px solid black;
+  padding: unset;
+}
+
+.jogar .sudoku select {
+  width: 46px;
+  height: 46px;
+  border: unset;
+  font-size: 20px;
+}
+
+.jogar #front {
+  transform: translateZ(97px);
+}
+
+.jogar #front :is(select, .trancada) {
+  background-color: green;
+}
+
+.jogar #bottom {
+  top: 140px;
+  transform: rotateX(-90deg);
+}
+
+.jogar #bottom :is(select, .trancada) {
+  background-color: red;
+}
+
+.jogar #back {
+  transform: translateZ(-96px) rotateX(180deg);
+}
+
+.jogar #back :is(select, .trancada) {
+  background-color: orange;
+}
+
+.jogar #top {
+  bottom: 140px;
+  transform: rotateX(90deg);
+}
+
+.jogar #top :is(select, .trancada) {
   background-color: blue;
 }
 
-.sudoku_cell:nth-child(4), .sudoku_cell:nth-child(5), .sudoku_cell:nth-child(6),
-.sudoku_cell:nth-child(13), .sudoku_cell:nth-child(14), .sudoku_cell:nth-child(15), 
-.sudoku_cell:nth-child(22), .sudoku_cell:nth-child(23), .sudoku_cell:nth-child(24) {
-  background-color: yellow;
-  color: black;
+.jogar #left {
+  left: -54px;
+  transform: rotateY(-90deg);
 }
 
-.sudoku_cell:nth-child(7), .sudoku_cell:nth-child(8), .sudoku_cell:nth-child(9),
-.sudoku_cell:nth-child(16), .sudoku_cell:nth-child(17), .sudoku_cell:nth-child(18), 
-.sudoku_cell:nth-child(25), .sudoku_cell:nth-child(26), .sudoku_cell:nth-child(27) {
-  background-color: greenyellow;
-  color: black;
+.jogar #left :is(select, .trancada) {
+  background-color: #44300a;
 }
 
-.sudoku_cell:nth-child(28), .sudoku_cell:nth-child(29), .sudoku_cell:nth-child(30),
-.sudoku_cell:nth-child(37), .sudoku_cell:nth-child(38), .sudoku_cell:nth-child(39), 
-.sudoku_cell:nth-child(46), .sudoku_cell:nth-child(47), .sudoku_cell:nth-child(48) {
-  background-color: orange;
-  color: black;
+.jogar #right {
+  left: 140px;
+  transform: rotateY(90deg);
 }
 
-.sudoku_cell:nth-child(31), .sudoku_cell:nth-child(32), .sudoku_cell:nth-child(33),
-.sudoku_cell:nth-child(40), .sudoku_cell:nth-child(41), .sudoku_cell:nth-child(42), 
-.sudoku_cell:nth-child(49), .sudoku_cell:nth-child(50), .sudoku_cell:nth-child(51) {
-  background-color: #c00505;
-}
-
-.sudoku_cell:nth-child(34), .sudoku_cell:nth-child(35), .sudoku_cell:nth-child(36),
-.sudoku_cell:nth-child(43), .sudoku_cell:nth-child(44), .sudoku_cell:nth-child(45), 
-.sudoku_cell:nth-child(52), .sudoku_cell:nth-child(53), .sudoku_cell:nth-child(54) {
+.jogar #right :is(select, .trancada) {
   background-color: purple;
 }
 
-.sudoku_cell:nth-child(55), .sudoku_cell:nth-child(56), .sudoku_cell:nth-child(57),
-.sudoku_cell:nth-child(64), .sudoku_cell:nth-child(65), .sudoku_cell:nth-child(66), 
-.sudoku_cell:nth-child(73), .sudoku_cell:nth-child(74), .sudoku_cell:nth-child(75) {
-  background-color: white;
-  color: black;
-}
-
-.sudoku_cell:nth-child(58), .sudoku_cell:nth-child(59), .sudoku_cell:nth-child(60),
-.sudoku_cell:nth-child(67), .sudoku_cell:nth-child(68), .sudoku_cell:nth-child(69), 
-.sudoku_cell:nth-child(76), .sudoku_cell:nth-child(77), .sudoku_cell:nth-child(78) {
-  background-color: #f76de4;
-}
-
-.sudoku_cell:nth-child(61), .sudoku_cell:nth-child(62), .sudoku_cell:nth-child(63),
-.sudoku_cell:nth-child(70), .sudoku_cell:nth-child(71), .sudoku_cell:nth-child(72), 
-.sudoku_cell:nth-child(79), .sudoku_cell:nth-child(80), .sudoku_cell:nth-child(81) {
-  background-color: black;
+.jogar .trancada {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  user-select: none;
+  box-shadow: inset 0 0 2px 0 white;
 }

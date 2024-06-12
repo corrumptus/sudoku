@@ -95,7 +95,13 @@ export function verificaJogo(table: SudokuTable): boolean {
 export type sudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
 export type sudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 export type LockedCell = { x: sudokuRange, y: sudokuRange, valor: sudokuValue };
-export type SudokuTable = ({ valor: sudokuValue | undefined, isLocked: boolean })[];
+export type SudokuTable = {
+    [key in SudokuFaces]: {
+        valor: sudokuValue | undefined,
+        isLocked: boolean
+    }[][]
+};
+export type SudokuFaces = "front" | "bottom" | "back" | "top" | "left" | "right";
 
 export async function getGame(id: number): Promise<SudokuTable | null | undefined> {
     try {

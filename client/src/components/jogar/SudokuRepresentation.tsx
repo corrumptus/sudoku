@@ -1,10 +1,49 @@
-import { useEffect, useState } from "react";
+import { MouseEvent, useEffect, useState } from "react";
 import { SudokuFaces, SudokuTable, sudokuValue, verificaJogo } from "../../sudoku-game-API/sudokuAPI";
 import newGame from "../../sudoku-game-API/newGame.json";
 import SudokuFace from "./SudokuFace";
 
 export default function SudokuRepresentation({ id }: { id: number }) {
   const [ tabela, setTabela ] = useState<SudokuTable>();
+
+  const [ isPressed, setIsPressed ] = useState(false);
+  const [ startX, setStartX ] = useState(0);
+  const [ scrollLeft, setScrollLeft ] = useState(0);
+  const [ startY, setStartY ] = useState(0);
+  const [ scrollTop, setScrollTop ] = useState(0);
+  const [ rotateX, setRotateX ] = useState(0);
+  const [ rotateY, setRotateY ] = useState(0);
+
+  function onMouseDown({ pageX, pageY, target }: MouseEvent<HTMLDivElement>) {
+    setIsPressed(true);
+
+    setStartX(pageX - (target as HTMLDivElement).offsetLeft);
+
+    setScrollLeft((target as HTMLDivElement).scrollLeft);
+
+    setStartY(pageY - (target as HTMLDivElement).offsetTop);
+
+    setScrollTop((target as HTMLDivElement).scrollTop);
+  }
+
+  function onMouseMove(event: MouseEvent<HTMLDivElement>) {
+    if (!isPressed)
+      return;
+
+    event.preventDefault();
+
+    const currentX = event.pageX - (event.target as HTMLDivElement).offsetLeft;
+
+    const walkX = (currentX - startX) * 1.5;
+
+    setRotateY(- scrollLeft + walkX);
+
+    const currentY = event.pageY - (event.target as HTMLDivElement).offsetTop;
+
+    const walkY = (currentY - startY) * 1.5;
+
+    setRotateX(- scrollTop - walkY);
+  }
 
   useEffect(() => {
     setTabela(generateTable());
@@ -57,19 +96,33 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   )
 
   return (
-    <div className="sudoku_rapper">
-      <div className="sudoku">
-        {Object.entries(tabela).map(([ face, cells ]) =>
-          <SudokuFace
-            face={face as SudokuFaces}
-            cells={cells}
-            atualizaValor={atualizaValor}
-          />
-        )}
+    <>
+      <div
+        className="sudoku_rapper"
+        onMouseLeave={() => setIsPressed(false)}
+        onMouseUp={() => setIsPressed(false)}
+        onMouseDown={onMouseDown}
+        onMouseMove={onMouseMove}
+      >
+        <div
+          className="sudoku"
+          style={{
+            transform: `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+          }}
+        >
+          {Object.entries(tabela).map(([ face, cells ]) =>
+            <SudokuFace
+              key={face}
+              face={face as SudokuFaces}
+              cells={cells}
+              atualizaValor={atualizaValor}
+            />
+          )}
+        </div>
       </div>
       <div className="buttons">
         <button onClick={handleSubmit}>Checar</button>
       </div>
-    </div>
+    </>
   )
 }

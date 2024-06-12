@@ -112,13 +112,38 @@ userRoute.post("/user/edit", async (req, res) => {
     const user = await UserRepository.update(payload.name, name, password);
 
     if (user === undefined) {
-        res.status(500).json(UserResponse.ofError("Cannot update the user"));
+        res.status(404).json(UserResponse.ofError("Cannot update the user"));
         return;
     }
 
     const newToken = await TokenService.newToken(user.name);
 
     res.json(UserResponse.ofToken(newToken));
-})
+});
+
+userRoute.delete("/user", async (req, res) => {
+    const token = req.headers.authorization;
+
+    if (token === undefined || typeof token !== "string" || token.trim() === "") {
+        res.status(400).json(UserResponse.ofError("Token cannot be blank"));
+        return;
+    }
+
+    const payload = await TokenService.validate(token);
+
+    if (payload === undefined) {
+        res.status(401).json(UserResponse.ofError("Invalid token"));
+        return;
+    }
+
+    const deleted = await UserRepository.delete(payload.name);
+
+    if (!deleted) {
+        res.status(400).json(UserResponse.ofError("Cannot delete the user"));
+        return;
+    }
+
+    res.status(200).send();
+});
 
 export default userRoute;

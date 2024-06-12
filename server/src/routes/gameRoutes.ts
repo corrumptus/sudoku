@@ -35,7 +35,7 @@ gameRoutes.get("/jogos/new", async (req, res) => {
         return;
     }
 
-    const payload = TokenService.validate(token);
+    const payload = await TokenService.validate(token);
 
     if (payload === undefined) {
         res.status(404).json(GameResponse.ofError("Invalid Token"));
@@ -109,14 +109,14 @@ gameRoutes.post("/jogos/:id", async (req, res) => {
         return;
     }
 
-    const payload = TokenService.validate(token);
+    const payload = await TokenService.validate(token);
 
     if (payload === undefined) {
         res.status(401).json(GameResponse.ofError("Invalid token"));
         return;
     }
 
-    const user = UserRepository.get(payload.name);
+    const user = await UserRepository.get(payload.name);
 
     if (user === undefined) {
         res.status(404).json(GameResponse.ofError("Username and/or password are incorrect"));

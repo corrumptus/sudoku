@@ -22,14 +22,13 @@
 }
 
 .jogar .sudoku {
-  width: 280px;
-  height: 280px;
+  width: 194px;
+  height: 194px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   transform-style: preserve-3d;
-  z-index: -1;
 }
 
 .jogar .sudoku table {
@@ -58,7 +57,7 @@
 }
 
 .jogar #bottom {
-  top: 140px;
+  top: 97px;
   transform: rotateX(-90deg);
 }
 
@@ -75,7 +74,7 @@
 }
 
 .jogar #top {
-  bottom: 140px;
+  bottom: 97px;
   transform: rotateX(90deg);
 }
 
@@ -84,7 +83,7 @@
 }
 
 .jogar #left {
-  left: -54px;
+  left: -97px;
   transform: rotateY(-90deg);
 }
 
@@ -93,7 +92,7 @@
 }
 
 .jogar #right {
-  left: 140px;
+  left: 97px;
   transform: rotateY(90deg);
 }
 

@@ -7,6 +7,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   const [ tabela, setTabela ] = useState<SudokuTable>();
 
   const [ isPressed, setIsPressed ] = useState(false);
+  const [ presser, setPresser ] = useState<HTMLElement | undefined>(undefined);
   const [ startX, setStartX ] = useState(0);
   const [ scrollLeft, setScrollLeft ] = useState(0);
   const [ startY, setStartY ] = useState(0);
@@ -16,6 +17,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
 
   function onMouseDown({ pageX, pageY, target }: MouseEvent<HTMLDivElement>) {
     setIsPressed(true);
+    setPresser((target as HTMLDivElement));
 
     setStartX(pageX - (target as HTMLDivElement).offsetLeft);
 
@@ -30,15 +32,19 @@ export default function SudokuRepresentation({ id }: { id: number }) {
     if (!isPressed)
       return;
 
-    event.preventDefault();
+    if (presser instanceof HTMLSelectElement)
+      return;
 
-    const currentX = event.pageX - (event.target as HTMLDivElement).offsetLeft;
+    event.preventDefault();
+    event.stopPropagation();
+
+    const currentX = event.pageX - (presser as HTMLElement).offsetLeft;
 
     const walkX = (currentX - startX) * 1.5;
 
     setRotateY(- scrollLeft + walkX);
 
-    const currentY = event.pageY - (event.target as HTMLDivElement).offsetTop;
+    const currentY = event.pageY - (presser as HTMLElement).offsetTop;
 
     const walkY = (currentY - startY) * 1.5;
 
@@ -99,8 +105,8 @@ export default function SudokuRepresentation({ id }: { id: number }) {
     <>
       <div
         className="sudoku_rapper"
-        onMouseLeave={() => setIsPressed(false)}
-        onMouseUp={() => setIsPressed(false)}
+        onMouseLeave={() => {setIsPressed(false); setPresser(undefined)}}
+        onMouseUp={() => {setIsPressed(false); setPresser(undefined)}}
         onMouseDown={onMouseDown}
         onMouseMove={onMouseMove}
       >

@@ -1,4 +1,4 @@
-import { jwtVerify } from "jose";
+import { SignJWT, jwtVerify } from "jose";
 
 export default class TokenService {
     static async validate(token: string): Promise<TokenPayLoad | undefined> {
@@ -24,8 +24,13 @@ export default class TokenService {
         }
     }
 
-    static newToken(name: string): string {
-        return "";
+    static async newToken(name: string): Promise<string> {
+        return await new SignJWT()
+            .setProtectedHeader({ alg: "HS256" })
+            .setIssuer("sudoku")
+            .setSubject(name)
+            .setIssuedAt()
+            .sign(new TextEncoder().encode(process.env.TOKEN_JWT_SECRET as string));
     }
 }
 

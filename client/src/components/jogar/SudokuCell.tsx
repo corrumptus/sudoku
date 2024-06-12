@@ -1,15 +1,19 @@
-import { sudokuValue } from "./SudokuRepresentation"
+import { SudokuFaces, sudokuValue } from "../../sudoku-game-API/sudokuAPI";
 
 export default function SudokuCell({
-  posicao,
+  face,
+  x,
+  y,
   valor,
-  atualizaValor,
-  trancada
+  trancada,
+  atualizaValor
 }: {
-  posicao: number,
+  face: SudokuFaces,
+  x: number,
+  y: number,
   valor: sudokuValue | undefined,
-  atualizaValor: (posicao: number, newValue: sudokuValue | undefined) => void,
-  trancada: boolean
+  trancada: boolean,
+  atualizaValor: (face: SudokuFaces, x: number, y: number, newValue: sudokuValue | undefined) => void
 }) {
   function getValue(valor: string): sudokuValue | undefined {
     const numero = Number(valor);
@@ -17,28 +21,27 @@ export default function SudokuCell({
     return numero !== 0 ? numero as sudokuValue : undefined;
   }
 
-  if (trancada)
-    return (
-      <div className="sudoku_cell trancada">{valor}</div>
-    );
+  if (trancada) return (
+    <div className="trancada">{valor}</div>
+  );
 
   return (
-    <div className="sudoku_cell">
-      <select
-        className="sudoku_select"
-        onChange={e => atualizaValor(posicao, getValue(e.currentTarget.value))}
-      >
-        <option></option>
-        <option value={1}>1</option>
-        <option value={2}>2</option>
-        <option value={3}>3</option>
-        <option value={4}>4</option>
-        <option value={5}>5</option>
-        <option value={6}>6</option>
-        <option value={7}>7</option>
-        <option value={8}>8</option>
-        <option value={9}>9</option>
-      </select>
-    </div>
+    <select
+      onChange={e => atualizaValor(face, x, y, getValue(e.currentTarget.value))}
+    >
+      <option></option>
+      <option value={1}>1</option>
+      <option value={2}>2</option>
+      <option value={3}>3</option>
+      <option value={4}>4</option>
+      <option value={5}>5</option>
+      <option value={6}>6</option>
+      <option value={7}>7</option>
+      <option value={8}>8</option>
+      <option value={9}>9</option>
+      <option value={10}>10</option>
+      <option value={11}>11</option>
+      <option value={12}>12</option>
+    </select>
   )
 }

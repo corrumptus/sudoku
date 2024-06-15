@@ -21,6 +21,10 @@
   box-shadow: 0 0 3px 0 white;
 }
 
+.jogar .sudoku_rapper.loading {
+  box-shadow: none;
+}
+
 .jogar .sudoku {
   width: 194px;
   height: 194px;

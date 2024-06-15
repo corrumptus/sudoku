@@ -25,9 +25,10 @@ export default function JogarNew() {
   });
 
   return (
-    <div className="sudoku">
+    <div className="jogar">
+      <h1>Sudoku</h1>
       {isError ?
-        <div>
+        <div className="sudoku_rapper">
           <h1>Não foi possível carregar o jogo</h1>
         </div>
         :

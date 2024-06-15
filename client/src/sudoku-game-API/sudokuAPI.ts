@@ -1,95 +1,91 @@
-function repete(arr: sudokuValue[]): boolean {
-    return new Set(arr).size !== 9;
-}
-
-function getLinha(arr: sudokuValue[], index: number): sudokuValue[] {
-    return arr.filter((_, i) => {
-        return i >= index * 9 && i < (index + 1) * 9;
-    });
-}
-
-function getColuna(arr: sudokuValue[], index: number): sudokuValue[] {
-    return arr.filter((_, i) => {
-        return i % 9 === index;
-    });
-}
-
-function getQuadrante(arr: sudokuValue[], index: number): sudokuValue[] {
-    return arr.filter((_, i) => {
-        const numeroDelimitadoPeloComecoDoQuadrante = (i: number, index: number, linha: 0 | 1 | 2): boolean =>
-            i >= ((index % 3) * 3) + (9 * linha) + (27 * ((index - (index % 3)) / 3));
-
-        const numeroDelimitadoPeloFimDoQuadrante = (i: number, index: number, linha: 0 | 1 | 2): boolean =>
-            i < (((index % 3) + 1) * 3) + (9 * linha) + (27 * ((index - (index % 3)) / 3));
-
-
-        const numeroEstaNaPrimeiraLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 0) &&
-            numeroDelimitadoPeloFimDoQuadrante(i, index, 0);
-
-        const numeroEstaNaSegundaLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 1) &&
-            numeroDelimitadoPeloFimDoQuadrante(i, index, 1);
-
-        const numeroEstaNaTerceiraLinhaDoQuadrante = numeroDelimitadoPeloComecoDoQuadrante(i, index, 2) &&
-            numeroDelimitadoPeloFimDoQuadrante(i, index, 2);
-
-
-        return numeroEstaNaPrimeiraLinhaDoQuadrante || numeroEstaNaSegundaLinhaDoQuadrante || numeroEstaNaTerceiraLinhaDoQuadrante;
-    });
-}
-
-function numeroRepetidoLinha(arr: sudokuValue[]): boolean {
-    for (let i = 0; i < 9; i++)
-        if (repete(getLinha(arr, i)))
-            return true;
-
-    return false;
-}
-
-function numeroRepetidoColuna(arr: sudokuValue[]): boolean {
-    for (let i = 0; i < 9; i++)
-        if (repete(getColuna(arr, i)))
-            return true;
-
-    return false;
-}
-
-function numeroRepetidoQuadrante(arr: sudokuValue[]): boolean {
-    for (let i = 0; i < 9; i++)
-        if (repete(getQuadrante(arr, i)))
-            return true;
-
-    return false;
-}
-
-function validaArray(arr: (sudokuValue | undefined)[]): arr is sudokuValue[] {
-    return !arr.includes(undefined);
-}
-
 export function verificaJogo(table: SudokuTable): boolean {
-    const arr = table.map(c => c.valor);
+    const faces: SudokuForValidation =
+        Object.keys(table)
+        .reduce((acc, curr) => {
+                acc[curr as SudokuFaces] = table[curr as SudokuFaces]
+                    .map(line => line.map(cell => cell.valor))
 
-    if (!validaArray(arr)) {
+                return acc;
+            },
+            {} as SudokuForValidation
+        );
+
+    if (!validaArray(faces)) {
         alert("termine o jogo primeiro");
         return false;
     }
 
-    if (numeroRepetidoLinha(arr)) {
+    if (numeroRepetidoLinha(faces)) {
         alert("tem número repetido em uma linha");
         return false;
     }
 
-    if (numeroRepetidoColuna(arr)) {
+    if (numeroRepetidoColuna(faces)) {
         alert("tem número repetido em uma coluna");
         return false;
     }
 
-    if (numeroRepetidoQuadrante(arr)) {
+    if (numeroRepetidoQuadrante(faces)) {
         alert("tem número repetido em um quadrante");
         return false;
     }
 
     alert("parabens");
     return true;
+}
+
+function validaArray(table: SudokuForValidation): table is SudokuForValidationNotUndefined {
+    return Object.values(table)
+        .map(face => face.flat().flat())
+        .find(face => face.includes(undefined)) === undefined;
+}
+
+function numeroRepetidoLinha(table: SudokuForValidationNotUndefined): boolean {
+    const mainFacesList = Object.keys(table)
+        .filter(key => !["top", "bottom"].includes(key))
+        .map(key => table[key as SudokuFaces]);
+
+    const mainLines = mainFacesList.map(() => new Array(0));
+
+    mainFacesList.forEach((face, i) => mainLines[i].push(...face[i]));
+
+    const secondaryFacesList = Object.keys(table)
+        .filter(key => !["front", "back"].includes(key))
+        .map(key => table[key as SudokuFaces]);
+
+    const secondaryLines = secondaryFacesList.map(() => new Array(0));
+
+    secondaryFacesList.forEach((face, i) => secondaryLines[i].push(...face[i]))
+
+    const hasDuplicatesMainLines = mainLines
+        .map(line => new Set(line))
+        .find(line => line.size !== 16) !== null;
+
+    const hasDuplicatesSecondaryLines = secondaryLines
+        .map(line => new Set(line))
+        .find(line => line.size !== 16) !== null;
+
+    return hasDuplicatesMainLines || hasDuplicatesSecondaryLines;
+}
+
+function numeroRepetidoColuna(table: SudokuForValidationNotUndefined): boolean {
+    const mainFacesList = Object.keys(table)
+        .filter(key => !["left", "right"].includes(key))
+        .map(key => table[key as SudokuFaces]);
+
+    const mainColumns = mainFacesList.map(() => new Array(0));
+
+    mainFacesList.forEach((face, i) => mainColumns[i].push(...face.map(line => line[i])));
+
+    return mainColumns
+        .map(line => new Set(line))
+        .find(line => line.size !== 16) !== null;
+}
+
+function numeroRepetidoQuadrante(table: SudokuForValidationNotUndefined): boolean {
+    return Object.values(table)
+        .map(face => new Set(face.flat()))
+        .find(face => face.size !== 16) !== null;
 }
 
 export type sudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
@@ -100,6 +96,13 @@ export type SudokuTable = {
         valor: sudokuValue | undefined,
         isLocked: boolean
     }[][]
+};
+
+type SudokuForValidation = {
+    [key in SudokuFaces]: (sudokuValue | undefined)[][]
+};
+type SudokuForValidationNotUndefined = {
+    [key in SudokuFaces]: sudokuValue[][]
 };
 export type SudokuFaces = "front" | "bottom" | "back" | "top" | "left" | "right";
 

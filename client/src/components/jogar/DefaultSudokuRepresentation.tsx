@@ -95,3 +95,4 @@ export default function DefaultSudokuRepresentation({ id }: { id: number }) {
       </div>
     </div>
   )
+}

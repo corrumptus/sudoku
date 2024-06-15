@@ -88,21 +88,21 @@ function numeroRepetidoQuadrante(table: SudokuForValidationNotUndefined): boolea
         .find(face => face.size !== 16) !== null;
 }
 
-export type sudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
-export type sudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
-export type LockedCell = { x: sudokuRange, y: sudokuRange, valor: sudokuValue };
+export type SudokuRange = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15;
+export type SudokuValue = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16;
+export type LockedCell = { x: SudokuRange, y: SudokuRange, valor: SudokuValue };
 export type SudokuTable = {
     [key in SudokuFaces]: {
-        valor: sudokuValue | undefined,
+        valor: SudokuValue | undefined,
         isLocked: boolean
     }[][]
 };
 
 type SudokuForValidation = {
-    [key in SudokuFaces]: (sudokuValue | undefined)[][]
+    [key in SudokuFaces]: (SudokuValue | undefined)[][]
 };
 type SudokuForValidationNotUndefined = {
-    [key in SudokuFaces]: sudokuValue[][]
+    [key in SudokuFaces]: SudokuValue[][]
 };
 export type SudokuFaces = "front" | "bottom" | "back" | "top" | "left" | "right";
 
@@ -113,19 +113,34 @@ export async function getGame(id: number): Promise<SudokuTable | null | undefine
         if (!response.ok)
             return null;
 
-        const { game: { lockedCells } }: { game: { lockedCells: LockedCell[] } }
+        const { game: lockedCells }: { game: {
+            [key in SudokuFaces]: {
+                x: SudokuRange,
+                y: SudokuRange
+                valor: SudokuValue
+            }[]
+        }}
             = await response.json();
 
-        return new Array(81).fill(undefined).map((_, i) => {
-            const lockedCell = lockedCells.find(lc => lc.x*lc.y === i);
+        return Object.keys(lockedCells)
+            .reduce((acc, curr) => {
+                    const face: SudokuTable[SudokuFaces] = new Array(4).map(() => new Array(4).map(() => ({
+                        valor: undefined,
+                        isLocked: false
+                    })));
+                    
+                    lockedCells[curr as SudokuFaces]
+                        .forEach(lc => face[lc.y][lc.x] = {
+                            valor: lc.valor,
+                            isLocked: true
+                        });
+                    
+                    acc[curr as SudokuFaces] = face;
 
-            const isFinded = lockedCell !== undefined;
-
-            return {
-                valor: isFinded ? lockedCell.valor : undefined,
-                isLocked: isFinded ? true : false
-            };
-        });
+                    return acc;
+                },
+                {} as SudokuTable
+            );
     } catch (e) {
         return undefined;
     }

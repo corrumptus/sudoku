@@ -1,4 +1,4 @@
-import { SudokuFaces, sudokuValue } from "../../sudoku-game-API/sudokuAPI";
+import { SudokuFaces, SudokuValue } from "../../sudoku-game-API/sudokuAPI";
 
 export default function SudokuCell({
   face,
@@ -11,14 +11,14 @@ export default function SudokuCell({
   face: SudokuFaces,
   x: number,
   y: number,
-  valor: sudokuValue | undefined,
+  valor: SudokuValue | undefined,
   trancada: boolean,
-  atualizaValor: (face: SudokuFaces, x: number, y: number, newValue: sudokuValue | undefined) => void
+  atualizaValor: (face: SudokuFaces, x: number, y: number, newValue: SudokuValue | undefined) => void
 }) {
-  function getValue(valor: string): sudokuValue | undefined {
+  function getValue(valor: string): SudokuValue | undefined {
     const numero = Number(valor);
 
-    return numero !== 0 ? numero as sudokuValue : undefined;
+    return numero !== 0 ? numero as SudokuValue : undefined;
   }
 
   if (trancada) return (

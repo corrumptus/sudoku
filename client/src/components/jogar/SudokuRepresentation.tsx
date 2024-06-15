@@ -1,5 +1,5 @@
 import { MouseEvent, useEffect, useState } from "react";
-import { SudokuFaces, SudokuTable, sudokuValue, verificaJogo } from "../../sudoku-game-API/sudokuAPI";
+import { SudokuFaces, SudokuTable, SudokuValue, verificaJogo } from "../../sudoku-game-API/sudokuAPI";
 import newGame from "../../sudoku-game-API/newGame.json";
 import SudokuFace from "./SudokuFace";
 
@@ -56,17 +56,17 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   }, []);
 
   function generateTable(): SudokuTable {
-    const faces: Record<string, { valor: sudokuValue | undefined, isLocked: boolean }[][]> = {}
+    const faces: Record<string, { valor: SudokuValue | undefined, isLocked: boolean }[][]> = {}
 
     const createArray = () => new Array(4).fill(null)
       .map(() => new Array(4).fill({ valor: undefined, isLocked: false }));
 
     Object.keys(newGame).forEach(key => {
-      const newArray: { valor: sudokuValue | undefined, isLocked: boolean }[][] = createArray();
+      const newArray: { valor: SudokuValue | undefined, isLocked: boolean }[][] = createArray();
 
       newGame[key as SudokuFaces].forEach(lockedCell => {
         newArray[lockedCell.y][lockedCell.x] = {
-          valor: lockedCell.valor as sudokuValue,
+          valor: lockedCell.valor as SudokuValue,
           isLocked: true
         };
       });
@@ -77,7 +77,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
     return faces as SudokuTable;
   }
 
-  function atualizaValor(face: SudokuFaces, x: number, y: number, newValue: sudokuValue | undefined) {
+  function atualizaValor(face: SudokuFaces, x: number, y: number, newValue: SudokuValue | undefined) {
     const novaTabela = {...tabela as SudokuTable};
 
     const novasCelulas = novaTabela[face].map(line => line.map(cell => ({...cell})));

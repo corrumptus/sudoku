@@ -1,12 +1,14 @@
 import { useNavigate } from "react-router-dom";
-import { Ranking } from "../../utils/useRanking";
 import { numberToTime } from "../../utils/utils";
 
 export default function gameRanking({
   ranking,
   index
 }: {
-  ranking: Ranking,
+  ranking: {
+    name: string;
+    time: number;
+  },
   index: number
 }) {
   const navigate = useNavigate();

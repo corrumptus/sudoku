@@ -1,4 +1,4 @@
-import { SudokuFaces, sudokuValue } from "../../sudoku-game-API/sudokuAPI"
+import { SudokuFaces, SudokuValue } from "../../sudoku-game-API/sudokuAPI"
 import SudokuCell from "./SudokuCell"
 
 export default function SudokuFace({
@@ -7,8 +7,8 @@ export default function SudokuFace({
   atualizaValor
 }: {
   face: SudokuFaces,
-  cells: { valor: sudokuValue | undefined, isLocked: boolean }[][],
-  atualizaValor: (face: SudokuFaces, x: number, y: number, newValue: sudokuValue | undefined) => void
+  cells: { valor: SudokuValue | undefined, isLocked: boolean }[][],
+  atualizaValor: (face: SudokuFaces, x: number, y: number, newValue: SudokuValue | undefined) => void
 }) {
   return (
     <table id={face}>

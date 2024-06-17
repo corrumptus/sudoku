@@ -9,9 +9,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
   const [ isPressed, setIsPressed ] = useState(false);
   const [ presser, setPresser ] = useState<HTMLElement | undefined>(undefined);
   const [ startX, setStartX ] = useState(0);
-  const [ scrollLeft, setScrollLeft ] = useState(0);
   const [ startY, setStartY ] = useState(0);
-  const [ scrollTop, setScrollTop ] = useState(0);
   const [ rotateX, setRotateX ] = useState(0);
   const [ rotateY, setRotateY ] = useState(0);
 
@@ -21,11 +19,7 @@ export default function SudokuRepresentation({ id }: { id: number }) {
 
     setStartX(pageX - (target as HTMLDivElement).offsetLeft);
 
-    setScrollLeft((target as HTMLDivElement).scrollLeft);
-
     setStartY(pageY - (target as HTMLDivElement).offsetTop);
-
-    setScrollTop((target as HTMLDivElement).scrollTop);
   }
 
   function onMouseMove(event: MouseEvent<HTMLDivElement>) {
@@ -42,13 +36,13 @@ export default function SudokuRepresentation({ id }: { id: number }) {
 
     const walkX = (currentX - startX) * 1.5;
 
-    setRotateY(- scrollLeft + walkX);
+    setRotateY(walkX);
 
     const currentY = event.pageY - (presser as HTMLElement).offsetTop;
 
     const walkY = (currentY - startY) * 1.5;
 
-    setRotateX(- scrollTop - walkY);
+    setRotateX(walkY);
   }
 
   useEffect(() => {

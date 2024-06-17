@@ -70,7 +70,7 @@
 }
 
 .jogar #back {
-  transform: translateZ(-96px) rotateX(180deg);
+  transform: translateZ(-96px) rotateX(180deg) rotateZ(180deg);
 }
 
 .jogar #back :is(select, .trancada) {
